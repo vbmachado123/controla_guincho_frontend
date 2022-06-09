@@ -1,0 +1,64 @@
+{
+    "name": "controla_guincho_frontend",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@headlessui/react": "^1.6.0",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^13.3.0",
+        "@testing-library/user-event": "^14.2.0",
+        "@types/jest": "^27.5.1",
+        "@types/node": "^17.0.37",
+        "@types/react": "^18.0.10",
+        "@types/react-dom": "^18.0.5",
+        "@types/recharts": "^1.8.23",
+        "aos": "^2.3.4",
+        "gh-pages": "^4.0.0",
+        "postcss-cli": "^9.1.0",
+        "postcss-preset-env": "^7.7.0",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "react-easy-swipe": "^0.0.22",
+        "react-icons": "^4.4.0",
+        "react-router-dom": "^6.3.0",
+        "react-scripts": "^5.0.1",
+        "react-to-print": "^2.14.7",
+        "recharts": "^2.1.10",
+        "typescript": "^4.7.2"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.0",
+        "@types/aos": "^3.0.4",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "@vitejs/plugin-react": "^1.3.0",
+        "autoprefixer": "^10.4.6",
+        "postcss": "^8.4.13",
+        "tailwind-scrollbar": "^1.3.1",
+        "tailwindcss": "^3.0.24",
+        "typescript": "^4.6.3",
+        "vite": "^2.9.5"
+    }
+}
