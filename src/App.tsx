@@ -8,7 +8,7 @@ import { List } from "./pages/List";
 
 export function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path='/' element={<Widget/>}/>
         <Route path='/list' element={<List/>}/>
