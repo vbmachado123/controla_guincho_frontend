@@ -5,13 +5,15 @@ import {
   Route
 } from "react-router-dom";
 import { List } from "./pages/List";
+import { Login } from "./pages/Login";
 
 export function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router >
       <Routes>
         <Route path='/' element={<Widget/>}/>
         <Route path='/list' element={<List/>}/>
+        <Route path='/login' element={<Login/>}/>
         {/* <Route path='/contact' element={<Contact/>}/> */}
 
       </Routes>

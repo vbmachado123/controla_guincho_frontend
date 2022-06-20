@@ -14,7 +14,7 @@ export function HeaderItem({ title, href, icon, active, }: HeaderItemProps) {
  function getIcon() {
     switch(icon) {
         case 'home':
-            return <MdHome className='h-5 w-5 ml-3'/>;
+            return <MdHome className='h-5 w-5 '/>;
         case 'group':
             return <MdGroup className='h-5 w-5 ml-3'/>;
         case 'work':

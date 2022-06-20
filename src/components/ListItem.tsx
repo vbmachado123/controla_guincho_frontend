@@ -1,14 +1,15 @@
 import { Popover } from "@headlessui/react";
+import { ItemList } from "../model/ItemList";
 
 interface ListItemProps {
     title: string;
     type: number;
-    onCLick: () => void;
+    itemList? : ItemList;
     label1: string;
     label2: string;
     rightSide: string;
  }
-export function ListItem({ title, type, onCLick, label1, label2, rightSide }: ListItemProps) {
+export function ListItem({ title, type, itemList, label1, label2, rightSide }: ListItemProps) {
     var titleLabel1 = '', titleLabel2 = '';
 
     switch(type) {
