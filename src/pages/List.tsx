@@ -13,7 +13,7 @@ export function List() {
                         </div>
 
                         <div className="mt-8 overflow-y-scroll">
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} onCLick={() => {}} label1={""} label2={""} rightSide={""}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={""}/>
                             
                         </div>
                        
