@@ -29,8 +29,8 @@ export function HeaderItem({ title, href, icon, active, }: HeaderItemProps) {
     return (
         <a href={href} className='pointer '>
             <div className={active  === true 
-            ? 'flex flex-row transition duration-500 ease-in-out transform text-green-600 hover:underline-offset-4 hover:underline' 
-            : 'flex flex-row transition duration-500 ease-in-out transform text-slate-800 hover:underline-offset-4 hover:underline'}>
+            ? 'flex flex-row transition duration-500 ease-in-out transform text-green-600 hover:underline-offset-4 hover:underline cursor-pointer ' 
+            : 'flex flex-row transition duration-500 ease-in-out transform text-slate-800 hover:underline-offset-4 hover:underline cursor-pointer '}>
 {/*                    
                    {
                         getIcon()

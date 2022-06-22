@@ -1,5 +1,5 @@
 import { GiTowTruck } from "react-icons/gi";
-import { MdOutlinePeopleOutline, MdOutlineAssignmentInd } from "react-icons/md";
+import { MdOutlinePeopleOutline, MdAssignment } from "react-icons/md";
 import { Button } from "../components/Button";
 import { DescriptionCard } from "../components/DescriptionCard";
 import { Header } from "../components/Header";
@@ -21,10 +21,10 @@ export function Widget() {
 
                         <p className="text-red-500">As informações estão estáticas por enquanto</p>
 
-                       <div className="max-w-max flex flex-row content-between justify-between mt-16">
-                           <DescriptionCard title={"Atendimentos"} value={"22"} style={"bg-orange-600"} icon={ <MdOutlineAssignmentInd size={96} color='white' opacity={.25} />} description={`Última atualização em: ${dataFormatada}`}/>
-                           <DescriptionCard title={"Veículos"} value={"4"} style={"bg-green-600"} icon={ <GiTowTruck size={96} color='white' opacity={.25} />} description={"Todos os veículos estão em funcionamento"}/>
-                           <DescriptionCard title={"Profissionais"} value={"2"} style={"bg-blue-900"} icon={<MdOutlinePeopleOutline size={96} color='white' opacity={.25}/>} description={"Todos os profissionais estão em atuação"}/>
+                       <div className="w-full flex flex-row content-between justify-between mt-16">
+                           <DescriptionCard title={"Atendimentos"} value={"22"} style={"bg-orange-600"} icon={ <MdAssignment size={120} color='white' opacity={.25} />} description={`Última atualização em: ${dataFormatada}`}/>
+                           <DescriptionCard title={"Veículos"} value={"4"} style={"bg-green-600"} icon={ <GiTowTruck size={120} color='white' opacity={.25} />} description={"Todos os veículos estão em funcionamento"}/>
+                           <DescriptionCard title={"Profissionais"} value={"2"} style={"bg-blue-900"} icon={<MdOutlinePeopleOutline size={120} color='white' opacity={.25}/>} description={"Todos os profissionais estão em atuação"}/>
                        </div>
 
                         <div className="mt-8 grid grid-col-2">
