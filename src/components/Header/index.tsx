@@ -40,7 +40,7 @@ export function Header({currentPage}: HeaderProps) {
 
         <a href="/">   
           {/* <img src={logo} alt="Logo Mentore Tech" className='y-1 x-1'/> */}
-          <div className='text-green-500 flex flex-row items-center font-bold hover:text-blue-900 transition-all transition transition-colors'>
+          <div className='text-green-500 flex flex-row items-center font-bold hover:text-blue-900 transition-all transition cursor-pointer ease-in'>
               <GiTowTruck size={26} className='hover:to-blue-900'/>
               <p className='pl-4'>Controla Guincho</p>
           </div>
