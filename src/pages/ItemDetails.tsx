@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Image } from "../components/Image";
 import { TextMultipleStyle } from "../components/TextMultipleStyle";
 import imageAsset  from "../assets/images/login_background.png";
+import { Feedback } from "../components/Feedback";
 
 export function ItemDetails() {
     return (
@@ -56,6 +57,7 @@ export function ItemDetails() {
                         </div>        
             </div>
                 <Header currentPage={"atendimento"}/>
+                <Feedback/>
         </div>
     );
 }

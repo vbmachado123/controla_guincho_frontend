@@ -54,19 +54,19 @@ export function Header({currentPage}: HeaderProps) {
             href={'/#about'} icon={'group'} active={aboutSelected}/> */}
 
                   <HeaderItem title={'Atendimentos'} 
-           href={'/list'} active={atendimentoSelected}/>
+           href={'/list/attendance'} active={atendimentoSelected}/>
 
                   {/* <HeaderItem title={'Despesas'} 
             href={'/list'} active={despesasSelected}/> */}
 
                   <HeaderItem title={'Profissionais'} 
-            href={'/list'} active={profissionaisSelected}/>
+            href={'/list/professional'} active={profissionaisSelected}/>
 
                   <HeaderItem title={'Veículos'} 
-            href={'/list'} active={veiculosSelected}/>
+            href={'/list/vehicle'} active={veiculosSelected}/>
 
                   <HeaderItem title={'Conta Corrente'} 
-            href={'/list'} active={conta_correnteSelected}/>
+            href={'/list/checking_account'} active={conta_correnteSelected}/>
             </div>
            <a href="/login"> <p className='text-slate-800'>Olá, <span className='text-green-600 font-semibold'>admin</span></p></a> 
         </nav>

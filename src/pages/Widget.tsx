@@ -2,6 +2,7 @@ import { GiTowTruck } from "react-icons/gi";
 import { MdOutlinePeopleOutline, MdAssignment } from "react-icons/md";
 import { Button } from "../components/Button";
 import { DescriptionCard } from "../components/DescriptionCard";
+import { Feedback } from "../components/Feedback";
 import { Header } from "../components/Header";
 import { PieChartBox } from "../components/PieChart";
 
@@ -33,6 +34,7 @@ export function Widget() {
                         </div>
             </div>
                 <Header currentPage={"home"}/>
+                <Feedback/>
         </div>
     );
 }

@@ -1,8 +1,45 @@
+import { useState } from "react";
 import { Button } from "../components/Button";
+import { Feedback } from "../components/Feedback";
 import { Header } from "../components/Header";
 import { ListItem } from "../components/ListItem";
+import { AttendanceItem } from "../model/AttendanceItem";
 
-export function List() {
+interface IRouteParams{
+  type: string;
+}
+
+export function List({type} : IRouteParams) {
+    
+    const [items, setItems] = useState();
+    
+    let listType = '';
+    switch (type) {
+            case "attendance":
+                listType = "atendimento";
+                break;
+                // return 'atendimento';
+            case "professional":
+                listType = "profissionais";
+                // return 'profissionais';
+                break;
+            case "vehicle":
+                listType = "veiculos";
+                break;
+                // return 'veiculos';
+            case "checking_account":
+                listType = "conta-corrente";
+                break;
+                // return 'conta-corrente';
+            default:
+                listType = "atendimento";
+                break;
+                // return 'atendimento';
+        } 
+
+    // const headerOption = useMemo(() => {
+    // });
+    
     return (
         <div className="flex flex-col w-screen h-screen scroll-smooth relative overflow-y-auto bg-slate-100">
           
@@ -24,7 +61,12 @@ export function List() {
                         </div>
                        
             </div>
-                <Header currentPage={"atendimento"}/>
+                <Header currentPage={listType}/>
+                <Feedback/>
         </div>
     );
+}
+
+function useMemo(_arg0: () => void) {
+    throw new Error("Function not implemented.");
 }
