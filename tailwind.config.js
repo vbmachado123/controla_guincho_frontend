@@ -1,6 +1,8 @@
 module.exports = {
     content: ["./src/**/*.{ts,tsx}"],
     theme: {
+
+
         extend: {
             bg: 'bg-slate-100',
         },
