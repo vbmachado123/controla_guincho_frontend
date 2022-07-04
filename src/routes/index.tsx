@@ -1,27 +1,22 @@
-import { Widget } from "./pages/Widget";
+import { List } from "phosphor-react";
 import {
   BrowserRouter as Router,
   Routes as RouterRoutes,
   Route
 } from "react-router-dom";
-import { List } from "./pages/List";
-import { Login } from "./pages/Login";
-import { ItemDetails } from "./pages/ItemDetails";
-import express from "express";
-import { Error } from "./pages/Error";
-// import {Routes} from './routes';
+// import { useAuth } from "../hooks/auth";
+import { ItemDetails } from "../pages/ItemDetails";
+import { Login } from "../pages/Login";
+import { Error } from "../pages/Error";
+import { Widget } from "../pages/Widget";
+import { AppRoutes } from './app.routes';
+import { AuthRoutes } from './auth.routes';
 
-export function App() {
-  // var app = express();
+export function Routes() {
+    // const { logged } = useAuth();
 
-  // app.use(function(req, res, next) {
-  //   res.header("Access-Control-Allow-Origin", "*");
-  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  //   next();
-  // });
-
-  return (
-     <Router>
+    return (
+        <Router>
             <RouterRoutes>
                 <Route path='/' element={<Widget/>}/>
                 <Route path='/list/attendance' element={<List type="attendance"/>}/>
@@ -33,5 +28,8 @@ export function App() {
                 <Route path='*' element={<Error/>}/>
             </RouterRoutes>
         </Router>
-  );
+        // <BrowserRouter>
+        //     {logged ? <AppRoutes/> : <AuthRoutes/>}
+        // </BrowserRouter>
+    );
 }

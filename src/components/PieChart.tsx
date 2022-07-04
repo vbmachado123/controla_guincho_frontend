@@ -18,10 +18,10 @@ export function PieChartBox() {
 };
 
   const series = [{
-    name: 'All Tasks',
+    name: 'Ganhos',
     data: [31, 40, 28, 51, 42, 109, 100]
   }, {
-    name: 'My Tasks',
+    name: 'Gastos',
     data: [11, 32, 45, 32, 34, 52, 41]
   }];
 
