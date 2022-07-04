@@ -14,7 +14,7 @@ export function ItemDetails() {
                         <div className="relative flex flex-row justify-between  px-24"> 
                             <div className="flex flex-row items-center text-green-500 hover:text-green-600 transition-all ease-linear">
                                 <MdKeyboardBackspace className="" size={22}/>
-                                <a href="/list" className="item-center font-medium text-lg ml-2">Voltar</a>
+                                <a href="/list/attendance" className="item-center font-medium text-lg ml-2">Voltar</a>
                             </div>
                             <Button onClick={() => {}} label={"Exportar"} style={"bg-green-500 text-white"} /> 
                           

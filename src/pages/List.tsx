@@ -36,9 +36,6 @@ export function List({type} : IRouteParams) {
                 break;
                 // return 'atendimento';
         } 
-
-    // const headerOption = useMemo(() => {
-    // });
     
     return (
         <div className="flex flex-col w-screen h-screen scroll-smooth relative overflow-y-auto bg-slate-100">
@@ -50,13 +47,13 @@ export function List({type} : IRouteParams) {
                         </div>
 
                         <div className="mt-8 overflow-y-scroll  px-24 w-full ">
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R\$ 25,99"}/>
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R\$ 25,99"}/>
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R\$ 25,99"}/>
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R\$ 25,99"}/>
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R\$ 25,99"}/>
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R\$ 25,99"}/>
-                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R\$ 25,99"}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R$ 25,99"}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R$ 25,99"}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R$ 25,99"}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R$ 25,99"}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R$ 25,99"}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R$ 25,99"}/>
+                            <ListItem title={"001 - Jorge Alves FIT-2213"} type={0} label1={""} label2={""} rightSide={"R$ 25,99"}/>
                             
                         </div>
                        
@@ -65,8 +62,4 @@ export function List({type} : IRouteParams) {
                 <Feedback/>
         </div>
     );
-}
-
-function useMemo(_arg0: () => void) {
-    throw new Error("Function not implemented.");
 }
