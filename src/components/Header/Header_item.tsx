@@ -4,7 +4,7 @@ import { MdHome, MdGroup, MdWork, MdMail } from 'react-icons/md';
 
 interface HeaderItemProps {
     title: string;
-    href: string;
+    href?: string;
     icon?: string;
     active: boolean;
 }
