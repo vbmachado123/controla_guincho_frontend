@@ -1,22 +1,21 @@
-import http from '../https-commons';
-import { AttendanceData } from '../model/AttendanceData';
+import { IAttendance } from './../model/AttendanceData'
+import http from '../https-commons'
+import { AttendanceData } from '../model/AttendanceData'
 
 const findOne = (id: number) => {
-    return http.get<AttendanceData>(`/attendance/find_one/${id}`);
-};
+  return http.get<IAttendance>(`/attendance/find_one/${id}`)
+}
 
 const finAll = () => {
-    return http.get<AttendanceData[]>('/attendance/find_all');
-};
+  return http.get<IAttendance[]>('/attendance/find_all')
+}
 
 const exportData = () => {
-    return http.get<void>('/attendance/export');
-};
+  return http.get<void>('/attendance/export')
+}
 
-const AttendanceService = {
-    findOne,
-    finAll,
-    exportData,
-};
-
-export default AttendanceService;
+export const AttendanceService = {
+  findOne,
+  finAll,
+  exportData
+}

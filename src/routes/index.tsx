@@ -23,7 +23,7 @@ export function Routes() {
                 <Route path='/list/professional' element={<List type="professional"/>}/>
                 <Route path='/list/vehicle' element={<List type="vehicle"/>}/>
                 <Route path='/list/checking_account' element={<List type="checking_account"/>}/>
-                <Route path='/item_details' element={<ItemDetails/>}/>
+                <Route path='/list/attendance/item_details/:1' element={<ItemDetails/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='*' element={<Error/>}/>
             </RouterRoutes>
