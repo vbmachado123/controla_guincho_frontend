@@ -57,24 +57,19 @@ export function Header({ currentPage }: HeaderProps) {
         {/* 
                   <HeaderItem title={'Quem Somos?'} 
             href={'/#about'} icon={'group'} active={aboutSelected}/> */}
-        <Link to={'list/attendance'}>
+        <Link to={'/list/attendance'}>
           <HeaderItem title={'Atendimentos'} active={atendimentoSelected} />
         </Link>
 
         {/* <HeaderItem title={'Despesas'} 
             href={'/list'} active={despesasSelected}/> */}
+        <Link to={'/list/professional'}>
+          <HeaderItem title={'Profissionais'} active={profissionaisSelected} />
+        </Link>
 
-        <HeaderItem
-          title={'Profissionais'}
-          href={'/list/professional'}
-          active={profissionaisSelected}
-        />
-
-        <HeaderItem
-          title={'Veículos'}
-          href={'/list/vehicle'}
-          active={veiculosSelected}
-        />
+        <Link to={'/list/vehicle'}>
+          <HeaderItem title={'Veículos'} active={veiculosSelected} />
+        </Link>
 
         <HeaderItem
           title={'Conta Corrente'}
@@ -82,6 +77,7 @@ export function Header({ currentPage }: HeaderProps) {
           active={conta_correnteSelected}
         />
       </div>
+
       <a href="/login">
         {' '}
         <p className="text-slate-800">
