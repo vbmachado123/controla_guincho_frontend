@@ -9,26 +9,42 @@ import { Link, useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { AttendanceService } from '../service/AttendanceService'
+import { json } from 'stream/consumers'
 
 export function ItemDetails() {
   const navigate = useNavigate()
   const { id } = useParams()
+  const { type } = useParams()
 
-  const [name, setName] = useState('')
-  const [brand, setBrand] = useState('')
-  const [commission, setComission] = useState(0)
+  const [client, setClient] = useState(Object())
+  // const [commission, setComission] = useState(0)
+  const [origin, setOrigin] = useState(Object())
 
+  const [exit, setExit] = useState(Object())
+  const [withdrawal, setWithdrawal] = useState(Object())
+  const [delivery, setDelivery] = useState(Object())
+
+  const [res, setResponse] = useState(Object())
   console.log(id)
+  
   useEffect(() => {
     async function load() {
       const response = await AttendanceService.findOne(Number(id))
-      const {
-        client: { name, brand },
-        commission
-      } = response.data
-      setName(name)
-      setBrand(brand)
-      setComission(commission)
+
+      // const {
+      //   client,
+
+      // } = response.data;
+      setClient(response.data.client);
+      setOrigin(response.data.origin);
+
+      setExit(response.data.exit);
+      setWithdrawal(response.data.withdrawal);
+      setDelivery(response.data.delivery);
+      // setName(name)
+      // setBrand(brand)
+      // setComission(commission)
+      setResponse(response.data)
       console.log(response.data)
     }
     load()
@@ -49,23 +65,23 @@ export function ItemDetails() {
               Voltar
             </a>
           </div>
-          <Button
+          {/* <Button
             onClick={() => {}}
             label={'Exportar'}
             style={'bg-green-500 text-white'}
-          />
+          /> */}
         </div>
 
         <div className="mt-8 mx-24 overflow-y-scroll px-8 py-8 bg-white shadow-xl rounded-3xl flex flex-col mb-16">
           <div className="flex flex-row justify-between">
-            <TextMultipleStyle title={'Cliente'} content={`${name}`} />
-            <TextMultipleStyle title={'Veículo'} content={`${brand}`} />
-            <TextMultipleStyle title={'Valor'} content={`R$ ${commission}`} />
+            <TextMultipleStyle title={'Cliente'} content={`${client.name ?? ''}`} />
+            <TextMultipleStyle title={'Veículo'} content={`${client.brand ?? ''} - ${client.model ?? ''} | ${client.license_plate ?? ''}`} />
+            <TextMultipleStyle title={'Valor'} content={`R$ ${res.value ??''}`} />
           </div>
           <div className="py-8">
             <TextMultipleStyle
               title={'Origem'}
-              content={'Atendimento: Reboque.me (KOVI)'}
+              content={`${origin.description ?? ''}`} 
             />
           </div>
 
@@ -77,14 +93,14 @@ export function ItemDetails() {
             </h4>
 
             <div className="flex flex-row justify-between">
-              <TextMultipleStyle title={'Saída'} content={'Av Paulista 2253'} />
+              <TextMultipleStyle title={'Saída'} content={`${exit.address ?? ''}`} />
               <TextMultipleStyle
                 title={'Retirada'}
-                content={'Consolação 123'}
+                content={`${withdrawal.address ?? ''}`}
               />
               <TextMultipleStyle
                 title={'Entrega'}
-                content={'Rua Eng. Borges 2253'}
+                content={`${delivery.address ?? ''}`}
               />
             </div>
           </div>

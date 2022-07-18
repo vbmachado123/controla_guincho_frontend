@@ -42,40 +42,41 @@ export function Header({ currentPage }: HeaderProps) {
       className="fixed top-0 left-0 flex justify-between content-between items-center px-24 py-6
             bg-slate-200 w-screen space-x-4 text-white shadow-2xl"
     >
-      <a href="/">
-        {/* <img src={logo} alt="Logo Mentore Tech" className='y-1 x-1'/> */}
+
+      <Link to="/"> 
+      {/* <img src={logo} alt="Logo Mentore Tech" className='y-1 x-1'/> */}
         <div className="text-green-500 flex flex-row items-center font-bold hover:text-blue-900 transition-all transition cursor-pointer ease-in">
           <GiTowTruck size={26} className="hover:to-blue-900" />
           <p className="pl-4">Controla Guincho</p>
         </div>
-      </a>
+      </Link>
+     
 
       <div className="flex flex-row justify-between w-content origin-center items-center">
         <Link to={'/'}>
-          <HeaderItem title={'Dashboard'} active={homeSelected} />
+          <HeaderItem title={'Dashboard'} icon={'dashboard'} active={homeSelected} />
         </Link>
         {/* 
                   <HeaderItem title={'Quem Somos?'} 
             href={'/#about'} icon={'group'} active={aboutSelected}/> */}
         <Link to={'/list/attendance'}>
-          <HeaderItem title={'Atendimentos'} active={atendimentoSelected} />
+          <HeaderItem title={'Atendimentos'} icon={'assignment'} active={atendimentoSelected} />
         </Link>
 
         {/* <HeaderItem title={'Despesas'} 
             href={'/list'} active={despesasSelected}/> */}
         <Link to={'/list/professional'}>
-          <HeaderItem title={'Profissionais'} active={profissionaisSelected} />
+          <HeaderItem title={'Profissionais'} icon={'professional'} active={profissionaisSelected} />
         </Link>
 
         <Link to={'/list/vehicle'}>
-          <HeaderItem title={'Veículos'} active={veiculosSelected} />
+          <HeaderItem title={'Veículos'} icon={'vehicle'} active={veiculosSelected} />
         </Link>
 
-        <HeaderItem
-          title={'Conta Corrente'}
-          href={'/list/checking_account'}
-          active={conta_correnteSelected}
-        />
+        <Link to='/list/checking_account'>
+          <HeaderItem title={'Conta Corrente'} icon={'checking_account'} active={conta_correnteSelected}/>
+        </Link>
+                
       </div>
 
       <a href="/login">

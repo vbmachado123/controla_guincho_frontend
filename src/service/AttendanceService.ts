@@ -3,19 +3,21 @@ import http from '../https-commons'
 import { AttendanceData } from '../model/AttendanceData'
 
 const findOne = (id: number) => {
-  return http.get<IAttendance>(`/attendance/find_one/${id}`)
+  return http.get<any>(`/attendance/find_one/${id}`)
 }
 
-const finAll = () => {
-  return http.get<IAttendance[]>('/attendance/find_all')
+const findAll = () => {
+  return http.get<any[]>('/attendance/find_all')
 }
 
 const exportData = () => {
-  return http.get<void>('/attendance/export')
+  return http.get<any>('/attendance/export', {
+    responseType: 'blob',
+  });
 }
 
 export const AttendanceService = {
   findOne,
-  finAll,
+  findAll,
   exportData
 }

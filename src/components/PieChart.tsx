@@ -1,45 +1,50 @@
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
-export function PieChartBox() {
+interface IPieChartBoxProps {
+  earnings : number;
+  spending : number;
+  total : number;
+}
+
+export function PieChartBox({ earnings, spending, total }: IPieChartBoxProps) {
    const options: ApexOptions = {
-  chart: {
-    width: 600,
-    height: 350,
-    type: 'donut',
-   
-    toolbar: {
-      show: false,
-    },
-    zoom: {
-      enabled: false
-    }
-  },
-};
+     chart: {
+        // type: 'donut',
+        },
+      responsive: [{
+        breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }],
+    labels: ['Receita', 'Despesa'],
+    colors: ['#00BFA5', '#EF5350'],
+    // subtitle: {
+    //   // text: 'Total: R$ ' + total.toFixed(2),
+    // },
+    // series: [earnings, spending],
+  };
 
-  const series = [{
-    name: 'Ganhos',
-    data: [31, 40, 28, 51, 42, 109, 100]
-  }, {
-    name: 'Gastos',
-    data: [11, 32, 45, 32, 34, 52, 41]
-  }];
-
+    const series = [earnings, spending];
 
     return (
-        <div className="my-4 w-auto  px-8 py-4 shadow-xl rounded-2xl bg-white flex flex-row">
+        <div className="my-4 w-1/2 h-[250px] px-8 py-4 shadow-xl rounded-2xl bg-white flex flex-row mb-8">
            <div className="flex flex-col">
                 <h4 className="font-bold text-slate-800">Conta Corrente</h4>
            </div>
 
-           <div className="">
-              
-            <ReactApexChart
-              options={options}
-              series={series}
-              type="line"
-              height={350}
-            />
+           <div className="mt-8">
+              <ReactApexChart 
+                options={options} 
+                series={series} 
+                type="donut" 
+              />
            </div>
         </div>
     );

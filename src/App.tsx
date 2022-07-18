@@ -24,18 +24,18 @@ export function App() {
     <Router>
       <RouterRoutes>
         <Route path="/" element={<Widget />} />
-        <Route path="/list/attendance" element={<List type="attendance" />} />
-        <Route
+        <Route path="/list/:type" element={<List/>} />
+        {/* <Route
           path="/list/professional"
-          element={<List type="professional" />}
+          element={<List/>}
         />
         <Route path="/list/vehicle" element={<List type="vehicle" />} />
         <Route
           path="/list/checking_account"
           element={<List type="checking_account" />}
-        />
+        /> */}
         <Route
-          path="/list/attendance/item_details/:id"
+          path="/list/:type/item_details/:id"
           element={<ItemDetails />}
         />
         <Route path="/login" element={<Login />} />

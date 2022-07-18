@@ -1,4 +1,6 @@
+import fileDownload from 'js-file-download'
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { Feedback } from '../components/Feedback'
 import { Header } from '../components/Header'
@@ -6,22 +8,39 @@ import { ListItem } from '../components/ListItem'
 import { AttendanceData, IAttendance } from '../model/AttendanceData'
 import { AttendanceItem } from '../model/AttendanceItem'
 import { AttendanceService } from '../service/AttendanceService'
+import { VehicleService } from '../service/VehicleService'
 
-interface IRouteParams {
-  type: string
-}
-
-export function List({ type }: IRouteParams) {
-  const [items, setItems] = useState<IAttendance[]>([])
+export function List() {
+  
+  const { type } = useParams()
+  const [items, setItems] = useState<any[]>([])
 
   useEffect(() => {
+    let response;
     async function load() {
-      const response = await AttendanceService.finAll()
-      setItems(response.data)
-      console.log(response.data)
+      switch(type) {
+        case 'attendance' :
+          response = await AttendanceService.findAll()
+          setItems(response.data)
+          console.log(response.data);
+          break;
+      case 'vehicle':
+        console.log('aaa Veiculo Selecionado');
+         response = await VehicleService.findAll()
+         setItems(response.data)
+         console.log(response.data);
+         break;
+      }
+      
     }
     load()
-  }, [])
+  }, []);
+
+ const downloadFile = async () => { 
+  AttendanceService.exportData().then(res => {
+    fileDownload(res.data, `${type}_${Date.now()}.xlsx`);
+  })
+ }
 
   let listType = ''
   switch (type) {
@@ -52,7 +71,7 @@ export function List({ type }: IRouteParams) {
       <div className="col-span-6 items-center justify-center w-full h-screen mt-24">
         <div className="relative flex flex-row justify-end  px-24">
           <Button
-            onClick={() => {}}
+            onClick={() => downloadFile()}
             label={'Exportar'}
             style={'bg-green-500 text-white'}
           />
@@ -64,22 +83,20 @@ export function List({ type }: IRouteParams) {
         </div>
 
         <div className="mt-8 overflow-y-scroll  px-24 w-full ">
-          <ListItem
-            title={'001 - Jorge Alves FIT-2213'}
-            id={1}
-            type={0}
-            label1={''}
-            label2={''}
-            rightSide={'R$ 25,99'}
-          />
-          {items.map((item, index) => (
-            <ListItem
-              id={item.id}
-              key={index}
-              title={item.client.name}
-              rightSide={`R$${item.commission}`}
-            />
-          ))}
+         
+          {
+            items.map((item, index) => (
+              <ListItem
+                id={item.id}
+                key={index}
+                title={`${item.id} | ${item.client.name} ${item.client.license_plate}`}
+                label1={item.journey.user.phone}
+                label2={item.journey.vehicle.license_plate}
+                type={0}
+                rightSide={`R$${item.value}`}
+              />
+            ))
+          }
         </div>
       </div>
       <Header currentPage={listType} />
