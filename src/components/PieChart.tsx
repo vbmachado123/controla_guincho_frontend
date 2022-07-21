@@ -34,7 +34,7 @@ export function PieChartBox({ earnings, spending, total }: IPieChartBoxProps) {
     const series = [earnings, spending];
 
     return (
-        <div className="my-4 w-1/2 h-[250px] px-8 py-4 shadow-xl rounded-2xl bg-white flex flex-row mb-8">
+        <div className="my-4 w-full mr-8 h-[250px] px-8 py-4 shadow-xl rounded-2xl bg-white flex flex-row mb-8">
            <div className="flex flex-col">
                 <h4 className="font-bold text-slate-800">Conta Corrente</h4>
            </div>

@@ -1,6 +1,8 @@
+import CountUp from 'react-countup';
+
 interface DescriptionCardProps {
     title: string;
-    value: string;
+    value: number;
     style: string;
     icon: any;
     description: string;
@@ -13,7 +15,9 @@ export function DescriptionCard({ title, value, style, icon, description }: Desc
         <div className={`w-3/4 mx-2 relative overflow-hidden rounded-3xl shadow-2xl ${style} px-8 py-4 flex flex-row hover:shadow-inherit transition transition-all`}>
             <div className="flex flex-col">
                 <h4 className="text-white font-bold text-lg">{title}</h4>
-                <h2 className="text-white font-bold text-4xl mt-4">{value}</h2>
+                <h2 className="text-white font-bold text-4xl mt-4">
+                    <CountUp start={0} end={value} delay={.2} preserveValue={true}/>        
+                    </h2>
 
                 <small className='text-white mt-4'>{description}</small>
             </div>

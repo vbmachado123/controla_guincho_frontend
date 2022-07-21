@@ -34,6 +34,14 @@ export function ListItem({
       titleLabel1 = 'Tipo Despesa'
       titleLabel2 = 'Observação'
       break
+    case 2:
+      titleLabel1 = 'Modelo'
+      titleLabel2 = 'Marca'
+      break
+    case 3:
+      titleLabel1 = 'Telefone'
+      titleLabel2 = 'E-mail'
+      break
   }
 
   return (
