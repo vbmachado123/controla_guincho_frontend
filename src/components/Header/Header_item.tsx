@@ -1,4 +1,3 @@
-import { IconType } from 'react-icons'
 import { GiTowTruck } from 'react-icons/gi'
 import { MdHome, MdGroup, MdWork, MdMail, MdAccountBalanceWallet, MdDashboard, MdSupervisorAccount, MdAssignment } from 'react-icons/md'
 

@@ -128,6 +128,7 @@ export function List() {
   return (
     <div className="flex flex-col w-screen h-screen scroll-smooth relative overflow-y-auto bg-slate-100">
       <div className="col-span-6 items-center justify-center w-full h-screen mt-24">
+        
         <div className="relative flex flex-row justify-end  px-24">
           <Button
             onClick={() => downloadFile()}
@@ -141,7 +142,7 @@ export function List() {
           />
         </div>
 
-        <div className="mt-8 overflow-y-scroll  px-24 w-full ">
+        <div className="mt-8 overflow-y-scroll px-24 w-full ">
           {renderList()}
         </div>
       </div>
