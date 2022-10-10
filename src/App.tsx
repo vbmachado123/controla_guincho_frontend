@@ -9,22 +9,16 @@ import { Login } from './pages/Login'
 import { ItemDetails } from './pages/ItemDetails'
 import express from 'express'
 import { Error } from './pages/Error'
+import { CreateItem } from './pages/CreateItem'
 // import {Routes} from './routes';
+// var cors = require('cors');
 
 export function App() {
-  // var app = express();
-
-  // app.use(function(req, res, next) {
-  //   res.header("Access-Control-Allow-Origin", "*");
-  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  //   next();
-  // });
-
   return (
     <Router>
       <RouterRoutes>
         <Route path="/" element={<Widget />} />
-        <Route path="/list/:type" element={<List/>} />
+        <Route path="/list/:type" element={<List key={Date.now()}/>} />
         {/* <Route
           path="/list/professional"
           element={<List/>}
@@ -38,7 +32,13 @@ export function App() {
           path="/list/:type/item_details/:id"
           element={<ItemDetails />}
         />
+        <Route
+          path="/list/called/create/:id"
+          element={<CreateItem />}
+        />
         <Route path="/login" element={<Login />} />
+        <Route path="/create" element={<CreateItem />} />
+        {/* <Route path="/create/:id" element={<CreateItem />} /> */}
         <Route path="*" element={<Error />} />
       </RouterRoutes>
     </Router>

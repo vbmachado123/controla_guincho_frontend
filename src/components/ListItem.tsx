@@ -42,10 +42,18 @@ export function ListItem({
       titleLabel1 = 'Telefone'
       titleLabel2 = 'E-mail'
       break
+    case 4:
+      titleLabel2 = 'Localização'
+      titleLabel1 = 'Categoria'
+      break 
+    case 5:
+      titleLabel2 = 'Data'
+      titleLabel1 = 'Origem'
+      break 
   }
 
   return (
-    <Link to={`item_details/${id}`}>
+    <Link to={`${type === 5 ?`create/${id}` : `item_details/${id}` }`}>
       <div className="w-auto h-auto rounded-2xl shadow-lg hover:shadow-2xl px-8 py-4 flex flex-row justify-between items-center m-4 bg-white cursor-pointer">
         <div className="w-full h-full flex flex-row justify-between content-between ">
           <div className="flex flex-col items-start">
@@ -61,20 +69,12 @@ export function ListItem({
           </div>
 
           <div className="">
-            <p className="text-green-400 items-center justify-center font-bold">
-              {rightSide}
+            <p className={`${title?.indexOf(/**'Despesa' || */'Saída') != -1 ? 'text-red-400':'text-green-400'} items-center justify-center font-bold`}>
+              {title?.indexOf(/**'Despesa' ||*/ 'Saída') != -1 ? `-R$ ${rightSide}` : title?.indexOf('Entrada' || 'Ganhos') != -1 ? `R$ ${rightSide}` : `${rightSide}`}
             </p>
           </div>
         </div>
       </div>
     </Link>
-
-    // <Popover className="w-auto h-auto rounded-2xl shadow-lg hover:shadow-2xl px-8 py-4 flex flex-row justify-between items-center m-4 bg-white cursor-pointer">
-    //    <Popover.Panel> <div className="bg-red-500 w-full h-full rounded-2xl shadow-2xl"> <h4>alsdlas</h4></div> </Popover.Panel>
-
-    //     <Popover.Button>
-
-    //     </Popover.Button>
-    // </Popover>
   )
 }

@@ -16,7 +16,7 @@ export function DescriptionCard({ title, value, style, icon, description }: Desc
             <div className="flex flex-col">
                 <h4 className="text-white font-bold text-lg">{title}</h4>
                 <h2 className="text-white font-bold text-4xl mt-4">
-                    <CountUp start={0} end={value} delay={.2} preserveValue={true}/>        
+                    <CountUp start={0} end={value} delay={.2} preserveValue={true} />        
                     </h2>
 
                 <small className='text-white mt-4'>{description}</small>

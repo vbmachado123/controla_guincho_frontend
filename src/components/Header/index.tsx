@@ -1,4 +1,5 @@
 // import logo from '../../assets/logo_mentore.svg';
+import React, { useCallback, useState } from 'react'
 import { GiTowTruck } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 import { HeaderItem } from './Header_item'
@@ -12,7 +13,9 @@ export function Header({ currentPage }: HeaderProps) {
     despesasSelected = false,
     profissionaisSelected = false,
     veiculosSelected = false,
-    conta_correnteSelected = false
+    conta_correnteSelected = false,
+    chamadoSelected = false
+    
   switch (currentPage) {
     case 'home':
       homeSelected = true
@@ -29,13 +32,61 @@ export function Header({ currentPage }: HeaderProps) {
     case 'veiculos':
       veiculosSelected = true
       break
-    case 'conta-corrente':
+    case 'conta_corrente':
       conta_correnteSelected = true
+      break
+    case 'chamado':
+      chamadoSelected = true
       break
     default:
       homeSelected = true
       break
   }
+  const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
+  function useForceUpdate() {
+  const [, setTick] = useState(0);
+    const update = useCallback(() => {
+      setTick(tick => tick + 1);
+    }, [])
+    return update; 
+  }
+  
+  const linkAttendance = {
+    pathname: "/list/attendance",
+    key: Date.now(), // we could use Math.random, but that's not guaranteed unique.
+    state: {
+      applied: true
+    }
+  };
+  const linkProfessional = {
+    pathname: "/list/professional",
+    key: Date.now(), // we could use Math.random, but that's not guaranteed unique.
+    state: {
+      applied: true
+    }
+  };
+  const linkVehicle = {
+    pathname: "/list/vehicle",
+    key: Date.now(), // we could use Math.random, but that's not guaranteed unique.
+    state: {
+      applied: true
+    }
+  };
+  const linkCheckingAccount = {
+    pathname: "/list/checking_account",
+    key: Date.now(), // we could use Math.random, but that's not guaranteed unique.
+    state: {
+      applied: true
+    }
+  };
+
+   const linkCalled = {
+    pathname: "/list/called",
+    key: Date.now(), // we could use Math.random, but that's not guaranteed unique.
+    state: {
+      applied: true
+    }
+  };
 
   return (
     <nav
@@ -50,25 +101,27 @@ export function Header({ currentPage }: HeaderProps) {
         </div>
       </Link>
 
-
       <div className="flex flex-row justify-between w-content origin-center items-center">
         <Link to={'/'} aria-invalid={true}>
           <HeaderItem title={'Dashboard'} icon={'dashboard'} active={homeSelected} />
         </Link>
 
-        <Link to={'/list/attendance'} aria-invalid={true}>
+        {/* <Link onClick={useForceUpdate()} to={linkAttendance} aria-invalid={true}>
           <HeaderItem title={'Atendimentos'} icon={'assignment'} active={atendimentoSelected} />
+        </Link> */}
+        <Link onClick={useForceUpdate()} to={linkCalled} aria-invalid={true}>
+          <HeaderItem title={'Chamados'} icon={'assignment'} active={chamadoSelected} />
         </Link>
 
-        <Link to={'/list/professional'} aria-invalid={true}>
+        <Link onClick={useForceUpdate()}  to={linkProfessional} aria-invalid={true}>
           <HeaderItem title={'Profissionais'} icon={'professional'} active={profissionaisSelected} />
         </Link>
 
-        <Link to={'/list/vehicle'} aria-invalid={true}>
+        <Link onClick={useForceUpdate()}  to={linkVehicle} aria-invalid={true}>
           <HeaderItem title={'Veículos'} icon={'vehicle'} active={veiculosSelected} />
         </Link>
 
-        <Link to={'/list/checking_account'} aria-invalid={true}>
+        <Link onClick={useForceUpdate()}  to={linkCheckingAccount} aria-invalid={true}>
           <HeaderItem title={'Conta Corrente'} icon={'checking_account'} active={conta_correnteSelected} />
         </Link>
 
@@ -83,3 +136,4 @@ export function Header({ currentPage }: HeaderProps) {
     </nav>
   )
 }
+

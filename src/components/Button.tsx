@@ -7,7 +7,7 @@ interface ButtonProps {
 export function Button({ onClick, label, style, ...rest }: ButtonProps) {
 
     return (
-        <button {...rest} className={`btn mr-3 ${style} rounded-2xl px-6 py-3  font-normal drop-shadow-lg hover:bg-green-600 hover:shadow-2xl transition-all translate-x-0 animate-none`} onClick={onClick}>
+        <button {...rest} className={`btn mr-3 ${style} rounded-2xl px-6 py-3 font-normal drop-shadow-lg hover:bg-green-600 hover:shadow-2xl transition-all translate-x-0 animate-none`} onClick={onClick}>
             {label.toUpperCase()}
         </button>
     );

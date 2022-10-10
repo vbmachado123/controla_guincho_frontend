@@ -2,8 +2,8 @@
     "name": "controla_guincho_frontend",
     "version": "0.1.0",
     "private": true,
-
     "dependencies": {
+        "@formkit/auto-animate": "^1.0.0-beta.3",
         "@headlessui/react": "^1.6.0",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^13.3.0",
@@ -15,9 +15,11 @@
         "@types/recharts": "^1.8.23",
         "aos": "^2.3.4",
         "apexcharts": "^3.35.3",
+        "auto-animation": "^0.4.0",
         "axios": "^0.27.2",
         "better-react-carousel": "^1.1.1",
         "cors": "^2.8.5",
+        "csv-parser": "^3.0.0",
         "eslint": "^8.19.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-config-standard": "^17.0.0",
@@ -35,6 +37,7 @@
         "react": "^18.1.0",
         "react-apexcharts": "^1.4.0",
         "react-countup": "^6.3.0",
+        "react-csv-reader": "^3.5.2",
         "react-dom": "^18.1.0",
         "react-easy-swipe": "^0.0.22",
         "react-icons": "^4.4.0",
@@ -42,7 +45,8 @@
         "react-router-dom": "^6.3.0",
         "react-scripts": "^5.0.1",
         "react-to-print": "^2.14.7",
-        "typescript": "^4.7.2"
+        "typescript": "^4.7.2",
+        "xlsx": "^0.18.5"
     },
     "scripts": {
         "dev": "vite",

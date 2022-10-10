@@ -55,7 +55,7 @@ export function ItemDetails() {
       <div className="col-span-6 items-center justify-center w-full h-screen mt-24">
         <div className="relative flex flex-row justify-between  px-24">
           <div className="flex flex-row items-center text-green-500 hover:text-green-600 transition-all ease-linear">
-            <MdKeyboardBackspace className="" size={22} />
+            <MdKeyboardBackspace size={22} />
 
             <a
               onClick={() => navigate(-1)}
