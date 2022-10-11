@@ -69,15 +69,19 @@ useEffect(() => {
 
 
     }
-  } load()
-})
+  } 
+
+  if (id !== undefined) {
+    load();
+  }
+}, [])
 
   useEffect(() => {
     let response;
     async function loadData() {
 
       response = await CalledService.findTypes();
-      console.log(response.data)
+      console.log("resposta da api aqui rapazzzz",response.data)
 
       // console.log(`Resposta API: ${response.data.call_types}`);
       
@@ -197,29 +201,34 @@ useEffect(() => {
     // console.log(dateHourInit);
     // console.log(dateHourEnd);
 
+    const date = new Date();
+    let valueFormated = value.replace('R$ ', '');
+    
     let obj = {
-          "dateHour" : '10/10/2022',
-          "description" : 'Teste de Chamado',
-          "dateHourInit" : '04:00',
-          "dateHourEnd" : '08:00',
-          "kmInit" : 1100,
-          "kmEnd" : 2000,
-          "value" : 0.0,
-          "vehicle" : 'Corsa Branco',
-          "number_of_tolls" : 0,
+          "dateHour" : `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
+          "description" : description,
+          "dateHourInit" : dateHourInit,
+          "dateHourEnd" : dateHourEnd,
+          "kmInit" : kmInit,
+          "kmEnd" : kmEnd,
+          "value" : valueFormated,
+          "vehicle" : vehicleTypeSelected,
+          "number_of_tolls" : numberOfTolls,
           "waiting_time" : 0.0,
           "category" : {
-            "id" : 7,
+            "id" : typeSelected,
           },
           "origin" : {
-            "id" : 2
+            "id" : typeSelected
           },
           "type" : {
-            "id" : 1
+            "id" : valueTypeSelected
           },
-          "driver" : {"id" : 1},
-          "tow_truck" : {"id" : 1}
+          "driver" : {"id" : driverSelected},
+          "tow_truck" : {"id" : vehicleSelected}
     };
+
+    console.log("objeto antes de enviar",obj);
 
     const response = await CalledService.create_one(obj);
     console.log(response.status)
@@ -275,12 +284,12 @@ useEffect(() => {
 
             <div className='flex sm:flex-col items-center md:flex-col lg:flex-row justify-around'>
              <div className='flex flex-col w-full'>
-                <Dropdown onChange={e => setDriverSelected(e.target.value)} label='Motorista' items={[...drivers]} id={'drivers'} name={'driver'}/>
-                <Dropdown onChange={e => setVehicleSelected(e.target.value)} label='Caminhão Utilizado' items={[...vehicles]} id={'vehicles'} name={'vehicle'}/>
+                <Dropdown value={driverSelected} onChange={e => setDriverSelected(e.target.value)} label='Motorista' items={[...drivers]} id={'drivers'} name={'driver'}/>
+                <Dropdown value={vehicleSelected} onChange={e => setVehicleSelected(e.target.value)} label='Caminhão Utilizado' items={[...vehicles]} id={'vehicles'} name={'vehicle'}/>
               </div> 
               <div className='flex flex-col w-full px-8'>
-                <Dropdown onChange={e => setVehicleTypeSelected(e.target.value)} label='Tipo de Veículo' items={[...vehicles_types]} id={'vehicle_type'} name={'vehicle_types'}/>
-                <Dropdown onChange={e => setTypeSelected(e.target.value)} label='Categoria do Chamado' items={[...types]} id={'types'} name={'type'}/>
+                <Dropdown value={vehicleTypeSelected} onChange={e => setVehicleTypeSelected(e.target.value)} label='Tipo de Veículo' items={[...vehicles_types]} id={'vehicle_type'} name={'vehicle_types'}/>
+                <Dropdown value={typeSelected} onChange={e => setTypeSelected(e.target.value)} label='Categoria do Chamado' items={[...types]} id={'types'} name={'type'}/>
               </div>
               <div className='flex flex-col w-full'>
                   <Input defaultValue={clientDetails} onChange={e => setClientDetails(e.target.value)} label={'Dados do Veículo'} id={'vehicle_client'} placeholder={'Placa e Modelo do veículo'} type={'text'}/>
@@ -295,10 +304,10 @@ useEffect(() => {
             
             <div className='flex flex-row justify-around'>
               <div className='w-full'>
-                <Input defaultValue={value} description={'(*) O valor será formatado quando for salvo'} onChange={e => setValue(e.target.value)} label={'Valor'} id={'value_input'} placeholder={'R$ 000,00'} type={'text'}/>
+                <Input defaultValue={value} description={'(*) O valor será formatado quando for salvo'} onChange={e => {setValue(e.target.value)}} label={'Valor'} id={'value_input'} placeholder={'R$ 000,00'} type={'text'}/>
               </div>
               <div className='w-full pl-8'>
-                <Dropdown onChange={e => setValueTypeSelected(e.target.value)} label='Tipo de Entrada' items={[...valueType]} id={'value_types'} name={'value_type'}/>
+                <Dropdown value={valueTypeSelected} onChange={e => setValueTypeSelected(e.target.value)} label='Tipo de Entrada' items={[...valueType]} id={'value_types'} name={'value_type'}/>
               </div>
             
             </div>
