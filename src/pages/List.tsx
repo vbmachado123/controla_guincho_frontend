@@ -17,15 +17,17 @@ import autoAnimate, { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export function List() {
 
-  const { type } = useParams()
+  const { type } = useParams();
   const [items, setItems] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [parent] = useAutoAnimate(/* optional config */)
+
  
   useEffect(() => {
 
     let response;
     async function load() {
+      console.log("executando a função load")
       setItems([]); // Limpa a lista antes de carregar os dados
       switch (type) {
         case 'attendance':
@@ -64,8 +66,10 @@ export function List() {
           console.log(response.data);
           break;
       }
+      setIsLoading(false)
     }
-    load()
+    
+    if (isLoading) load();
   }, []);
 
   const downloadFile = async () => {
@@ -101,7 +105,8 @@ export function List() {
     // return 'atendimento';
   }
 
-  const renderList = () => {
+  const renderList = (filter?: string) => {
+
     if (items.length > 0) {
       switch (type) {
         case 'attendance':
@@ -158,19 +163,54 @@ export function List() {
           ))
         case 'called':
           console.log('> Called');
-          return items.map((item, index) => (
-           <ListItem
-              id={item.id}
-              key={index}
-              title={`${item.type.description} | ${item.description ?? ''}`}
-              label2={`${item.datehour}`}
-              label1={item.origin.description}
-              type={5}
-              rightSide={
-               item.value ?? 0
-              }
-            />
-          ))
+          if (filter === "Entrada") {
+            
+            const filtered = items.filter((item) => item.type.description === "Entrada");
+
+            return filtered.filter((item, index) => index < (currentPage * 10) && index >= (currentPage * 10 - 10)).map((item, index) => (
+              <ListItem
+                id={item.id}
+                key={index}
+                title={`${item.type.description} | ${item.description ?? ''}`}
+                label2={`${item.datehour}`}
+                label1={item.origin.description}
+                type={5}
+                rightSide={
+                item.value ?? 0
+                }
+              />
+            ))
+          } else if (filter === "Saída") {
+            const filtered = items.filter((item) => item.type.description === "Saída");
+
+            return filtered.filter((item, index) => index < (currentPage * 10) && index >= (currentPage * 10 - 10)).map((item, index) => (
+              <ListItem
+                id={item.id}
+                key={index}
+                title={`${item.type.description} | ${item.description ?? ''}`}
+                label2={`${item.datehour}`}
+                label1={item.origin.description}
+                type={5}
+                rightSide={
+                item.value ?? 0
+                }
+              />
+            ))
+          } else {
+            return items.filter((item, index) => index < (currentPage * 10) && (index >= currentPage * 10 - 10)).map((item, index) => (
+              <ListItem
+                 id={item.id}
+                 key={index}
+                 title={`${item.type.description} | ${item.description ?? ''}`}
+                 label2={`${item.datehour}`}
+                 label1={item.origin.description}
+                 type={5}
+                 rightSide={
+                  item.value ?? 0
+                 }
+               />
+             ))
+          }
       }
     } else {
       if(!isLoading) {
@@ -227,6 +267,20 @@ export function List() {
 ]
    */
 
+  const [filter, setFilter] = useState('');
+  const [filterList, setFilterList] = useState<any[]>([]);
+
+  const numberOfPages = filter === 'TODOS' || filter === '' ? Math.ceil(items.length / 10) : Math.ceil(filterList.length / 10);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleFilter = (e) => {
+
+    setFilterList(items.filter(item => item.type.description === e.target.value));
+
+    setFilter(e.target.value);
+    setCurrentPage(1);
+  }
+
   return (
     <div className="flex flex-col w-screen h-screen scroll-smooth relative overflow-y-auto bg-slate-100">
       <div className="col-span-6 items-center justify-center w-full h-screen mt-24">
@@ -245,17 +299,18 @@ export function List() {
             label={'Exportar'}
             style={'bg-green-500 text-white'}
           />
-          <Button
-            onClick={() => { }}
-            label={'Filtrar'}
-            style={'bg-green-500 text-white'}
-          />
+          {
+            type === "called" &&
+              <select  onChange={handleFilter} defaultValue={"DEFAULT"} className={"btn w-32 mr-3 bg-green-500 text-white rounded-2xl px-6 py-3 font-normal drop-shadow-lg hover:bg-green-600 hover:shadow-2xl focus:border-transparent transition-all translate-x-0 animate-none border-none"}>
+                <option value={"DEFAULT"} disabled>FILTRAR</option>
+                <option value={"TODOS"} >TODOS</option>
+                <option value={"Entrada"} >ENTRADA</option>
+                <option value={"Saída"} >SAÍDA</option>
+              </select>
+          }
         </div>
 
         <div className="mt-8 overflow-y-scroll px-24 w-full ">
-          { 
-            renderList()
-          }
           {
             isLoading ?
             <>
@@ -270,7 +325,21 @@ export function List() {
                   <p>Buscando Informações...</p>
 
                 </div>
-            </> : <></>
+            </> : renderList(filter)
+          }
+        </div>
+        <div className="flex flex-row justify-center mt-8 pb-8">
+          {
+            numberOfPages > 1 &&
+            Array.from(Array(numberOfPages).keys()).map((item, index) => {
+              return (
+                <Button
+                  onClick={() => setCurrentPage(index + 1)}
+                  label={String(index + 1)}
+                  style={`${currentPage === index + 1 ? "bg-green-500 text-white" : "bg-transparent text-green-500"} mr-2 hover:text-white hover:shadow-2xl focus:border-transparent transition-all translate-x-0 animate-none border-none`}
+                />
+              )
+            })
           }
         </div>
       </div>
