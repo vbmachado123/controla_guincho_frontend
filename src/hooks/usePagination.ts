@@ -36,6 +36,8 @@ export const usePagination = (numberOfPages: number) => {
         if (currentPage < numberOfPages) {
             pages.push('...');
             pages.push(numberOfPages);
+        } else if (currentPage === numberOfPages) {
+            pages.push(numberOfPages)
         }
     }
 
