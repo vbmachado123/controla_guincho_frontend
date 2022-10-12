@@ -14,6 +14,8 @@ import { CheckingAccountService } from '../service/CheckingAccountService'
 import { ExpenseService } from '../service/ExpenseService'
 import { CalledService } from '../service/CalledService'
 import autoAnimate, { useAutoAnimate } from '@formkit/auto-animate/react'
+import { usePagination } from '../hooks/usePagination'
+import { Pagination } from '../components/Pagination'
 
 export function List() {
 
@@ -271,7 +273,7 @@ export function List() {
   const [filterList, setFilterList] = useState<any[]>([]);
 
   const numberOfPages = filter === 'TODOS' || filter === '' ? Math.ceil(items.length / 10) : Math.ceil(filterList.length / 10);
-  const [currentPage, setCurrentPage] = useState(1);
+  const { currentPage, setCurrentPage, pages } = usePagination(numberOfPages);
 
   const handleFilter = (e) => {
 
@@ -328,20 +330,11 @@ export function List() {
             </> : renderList(filter)
           }
         </div>
-        <div className="flex flex-row justify-center mt-8 pb-8">
-          {
-            numberOfPages > 1 &&
-            Array.from(Array(numberOfPages).keys()).map((item, index) => {
-              return (
-                <Button
-                  onClick={() => setCurrentPage(index + 1)}
-                  label={String(index + 1)}
-                  style={`${currentPage === index + 1 ? "bg-green-500 text-white" : "bg-transparent text-green-500"} mr-2 hover:text-white hover:shadow-2xl focus:border-transparent transition-all translate-x-0 animate-none border-none`}
-                />
-              )
-            })
-          }
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          pages={pages}
+          onPageChange={page => setCurrentPage(page)}
+        />
       </div>
       <Header currentPage={listType} />
       <Feedback />
