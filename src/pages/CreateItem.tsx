@@ -27,14 +27,14 @@ export function CreateItem() {
   const [kmInit, setKmInit] = useState<string>('');
   const [kmEnd, setKmEnd] = useState<string>('');
   const [clientDetails, setClientDetails] = useState<string>('');
-  const [numberOfTolls, setNumberOfTolls] = useState<string>('');
+  const [licensePlate, setLicensePlate] = useState<string>('');
 
   // dropdown
-  const [valueTypeSelected, setValueTypeSelected] = useState<string>('');
-  const [vehicleTypeSelected, setVehicleTypeSelected] = useState<string>('');
-  const [driverSelected, setDriverSelected] = useState<string>('');
-  const [vehicleSelected, setVehicleSelected] = useState<string>('');
-  const [typeSelected, setTypeSelected] = useState<string>('');
+  const [valueTypeSelected, setValueTypeSelected] = useState<string>('1');
+  const [vehicleTypeSelected, setVehicleTypeSelected] = useState<string>('1');
+  const [driverSelected, setDriverSelected] = useState<string>('1');
+  const [vehicleSelected, setVehicleSelected] = useState<string>('1');
+  const [originSelected, setOriginSelected] = useState<string>('1');
 
 
   const [valueType, setValueType] = useState<ItemSelect[]>([]);
@@ -64,6 +64,8 @@ useEffect(() => {
       clientDetails = `Veiculo: ${response.data.vehicle ?? ''} | ${response.data.license_plate ?? ''}`
     }
     setClientDetails(clientDetails ?? '--')
+
+    // setOriginSelected(response.data.categor)
     
     setValue(`R$ ${response.data.value}`)
 
@@ -197,29 +199,26 @@ useEffect(() => {
     event.preventDefault();
 
     console.log('=========================');
-    // console.log(description);
-    // console.log(dateHourInit);
-    // console.log(dateHourEnd);
-
+  
     const date = new Date();
     let valueFormated = value.replace('R$ ', '');
     
     let obj = {
-          "dateHour" : `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
+          "dateHour" : `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`,
           "description" : description,
           "dateHourInit" : dateHourInit,
           "dateHourEnd" : dateHourEnd,
           "kmInit" : kmInit,
           "kmEnd" : kmEnd,
           "value" : valueFormated,
-          "vehicle" : vehicleTypeSelected,
-          "number_of_tolls" : numberOfTolls,
+          "vehicle" : clientDetails,
+          "license_plate" : licensePlate,
           "waiting_time" : 0.0,
           "category" : {
-            "id" : typeSelected,
+            "id" : vehicleTypeSelected,
           },
           "origin" : {
-            "id" : typeSelected
+            "id" : originSelected
           },
           "type" : {
             "id" : valueTypeSelected
@@ -284,16 +283,16 @@ useEffect(() => {
 
             <div className='flex sm:flex-col items-center md:flex-col lg:flex-row justify-around'>
              <div className='flex flex-col w-full'>
-                <Dropdown value={driverSelected} onChange={e => setDriverSelected(e.target.value)} label='Motorista' items={[...drivers]} id={'drivers'} name={'driver'}/>
+                <Dropdown value={driverSelected} onChange={e => {console.log(`Motorista Alterado ${e.target.value}`); setDriverSelected(e.target.value)}} label='Motorista' items={[...drivers]} id={'drivers'} name={'driver'}/>
                 <Dropdown value={vehicleSelected} onChange={e => setVehicleSelected(e.target.value)} label='Caminhão Utilizado' items={[...vehicles]} id={'vehicles'} name={'vehicle'}/>
               </div> 
               <div className='flex flex-col w-full px-8'>
-                <Dropdown value={vehicleTypeSelected} onChange={e => setVehicleTypeSelected(e.target.value)} label='Tipo de Veículo' items={[...vehicles_types]} id={'vehicle_type'} name={'vehicle_types'}/>
-                <Dropdown value={typeSelected} onChange={e => setTypeSelected(e.target.value)} label='Categoria do Chamado' items={[...types]} id={'types'} name={'type'}/>
+                <Dropdown value={vehicleTypeSelected} onChange={e => setVehicleTypeSelected(e.target.value)} label='Categoria do Veículo' items={[...vehicles_types]} id={'vehicle_type'} name={'vehicle_types'}/>
+                <Dropdown value={originSelected} onChange={e => setOriginSelected(e.target.value)} label='Origem do Chamado' items={[...types]} id={'types'} name={'type'}/>
               </div>
               <div className='flex flex-col w-full'>
                   <Input defaultValue={clientDetails} onChange={e => setClientDetails(e.target.value)} label={'Dados do Veículo'} id={'vehicle_client'} placeholder={'Placa e Modelo do veículo'} type={'text'}/>
-                  <Input defaultValue={numberOfTolls} onChange={e => setNumberOfTolls(e.target.value)} label={'Qntd. de Pedágios'} id={'number_of_tolls'} placeholder={'00000'} type={'number'}/>       
+                  <Input defaultValue={licensePlate} onChange={e => setLicensePlate(e.target.value)} label={'Placa do Veículo'} id={'license_plate'} placeholder={'AAA-0000'} type={'text'}/>       
               </div>
 
             </div>

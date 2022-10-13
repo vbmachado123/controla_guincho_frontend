@@ -8,9 +8,10 @@ axios.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
 // axios.defaults.headers.patch['Access-Control-Allow-Origin'] = '*';
 
 export default axios.create({
-    baseURL: 'http://localhost:8081/api/v1',
+    // baseURL: 'http://192.168.0.10:8081/api/v1',
+    // baseURL: 'http://localhost:8081/api/v1',
     // baseURL: 'https://cors-anywhere.herokuapp.com/http://192.168.0.10:8081/api/v1',
-    // baseURL: 'http://188.34.166.175:8081/api/v1',
+    baseURL: 'http://188.34.166.175:8081/api/v1',
 
     headers: {
         "Content-type": "application/json",
