@@ -65,7 +65,24 @@ useEffect(() => {
     }
     setClientDetails(clientDetails ?? '--')
 
-    // setOriginSelected(response.data.categor)
+    setOriginSelected(response.data.origin.id)
+    setVehicleTypeSelected(response.data.category.id)
+    setValueTypeSelected(response.data.type.id)
+    setDriverSelected(response.data.driver.id)
+    setVehicleSelected(response.data.tow_truck.id)
+
+
+      //  "category" : {
+      //       "id" : vehicleTypeSelected,
+      //     },
+      //     "origin" : {
+      //       "id" : originSelected
+      //     },
+      //     "type" : {
+      //       "id" : valueTypeSelected
+      //     },
+      //     "driver" : {"id" : driverSelected},
+      //     "tow_truck" : {"id" : vehicleSelected}
     
     setValue(`R$ ${response.data.value}`)
 
