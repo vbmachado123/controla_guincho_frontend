@@ -1,7 +1,7 @@
 import { Widget } from './pages/Widget'
 import {
-  BrowserRouter as Router,
-  Routes as RouterRoutes,
+  BrowserRouter,
+  Routes,
   Route
 } from 'react-router-dom'
 import { List } from './pages/List'
@@ -15,9 +15,9 @@ import { CreateItem } from './pages/CreateItem'
 
 export function App() {
   return (
-    <Router>
-      <RouterRoutes>
-        <Route path="/" element={<Widget />} />
+    <BrowserRouter basename='/'>
+      <Routes>
+        <Route path="/" element={<Widget/>} />
         <Route path="/list/:type" element={<List key={Date.now()}/>} />
         {/* <Route
           path="/list/professional"
@@ -37,10 +37,10 @@ export function App() {
           element={<CreateItem />}
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/create" element={<CreateItem />} />
+        <Route path="/create" element={<CreateItem/>} />
         {/* <Route path="/create/:id" element={<CreateItem />} /> */}
         <Route path="*" element={<Error />} />
-      </RouterRoutes>
-    </Router>
+      </Routes>
+    </BrowserRouter>
   )
 }
