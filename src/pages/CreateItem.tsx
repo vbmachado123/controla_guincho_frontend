@@ -9,7 +9,6 @@ import { Input } from '../components/Input';
 import CSVReader from 'react-csv-reader';
 import { CalledService } from '../service/CalledService';
 import { Dropdown } from '../components/Dropdown';
-import { stringify } from 'querystring';
 import { ItemSelect } from '../model/ItemSelect';
 
 export function CreateItem() {
@@ -35,7 +34,6 @@ export function CreateItem() {
   const [driverSelected, setDriverSelected] = useState<string>('1');
   const [vehicleSelected, setVehicleSelected] = useState<string>('1');
   const [originSelected, setOriginSelected] = useState<string>('1');
-
 
   const [valueType, setValueType] = useState<ItemSelect[]>([]);
   const [vehicles_types, setVehicleType] = useState<ItemSelect[]>([]);
@@ -71,7 +69,6 @@ useEffect(() => {
     setDriverSelected(response.data.driver.id)
     setVehicleSelected(response.data.tow_truck.id)
 
-
       //  "category" : {
       //       "id" : vehicleTypeSelected,
       //     },
@@ -85,8 +82,6 @@ useEffect(() => {
       //     "tow_truck" : {"id" : vehicleSelected}
     
     setValue(`R$ ${response.data.value}`)
-
-
     }
   } 
 
@@ -148,7 +143,7 @@ useEffect(() => {
   async function importFile(data, fileInfo) {
     // console.dir(data, fileInfo)
     console.log('aaaaaaaaaaaa')
-    let req = [Object()];
+    let req = Object();
     setIsLoading(true);
   await data.map(async (d, index) => {
       // console.dir(d)
