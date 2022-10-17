@@ -6,6 +6,9 @@ import { Feedback } from '../components/Feedback';
 import { Header } from '../components/Header';
 import { Input } from '../components/Input';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import CSVReader from 'react-csv-reader';
 import { CalledService } from '../service/CalledService';
 import { Dropdown } from '../components/Dropdown';
@@ -14,6 +17,8 @@ import { ItemSelect } from '../model/ItemSelect';
 export function CreateItem() {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const notify = () => toast("Dados Salvos com Sucesso!");
 
   const [isLoading, setIsLoading] = useState(false);
   const [percent, setPercent] = useState('');
@@ -48,20 +53,22 @@ useEffect(() => {
     console.log('Id nao ta vazio');
       
     const response = await CalledService.findOne(Number(id));
-    console.log(response.data)
+    console.log(response.data);
     
-    setDescription(response.data.description)
-    setDateHourInit(response.data.dateHourInit ?? '--')
-    setDateHourEnd(response.data.dateHourEnd ?? '--')
+    setDescription(response.data.description);
+    setDateHourInit(response.data.dateHourInit ?? '--');
+    setDateHourEnd(response.data.dateHourEnd ?? '--');
+
+    setLicensePlate(response.data.license_plate ?? '');
     
-    setKmEnd(response.data.kmEnd ?? '--')
-    setKmInit(response.data.kmInit ?? '--')
-    let clientDetails = '';
-    if(response.data.vehicle != '' 
-    || response.data.license_plate != '') {
-      clientDetails = `Veiculo: ${response.data.vehicle ?? ''} | ${response.data.license_plate ?? ''}`
-    }
-    setClientDetails(clientDetails ?? '--')
+    setKmEnd(response.data.kmEnd ?? '--');
+    setKmInit(response.data.kmInit ?? '--');
+    // let clientDetails = '';
+    // if(response.data.vehicle != '' 
+    // || response.data.license_plate != '') {
+    //   clientDetails = `Veiculo: ${response.data.vehicle ?? ''} | ${response.data.license_plate ?? ''}`
+    // }
+    setClientDetails(response.data.vehicle ?? '')
 
     setOriginSelected(response.data.origin.id)
     setVehicleTypeSelected(response.data.category.id)
@@ -243,6 +250,10 @@ useEffect(() => {
 
     const response = await CalledService.create_one(obj);
     console.log(response.status)
+    
+    await toast("Dados Salvos com Sucesso!");
+    
+    window.location.reload();
 
   }
 
@@ -303,7 +314,7 @@ useEffect(() => {
                 <Dropdown value={originSelected} onChange={e => setOriginSelected(e.target.value)} label='Origem do Chamado' items={[...types]} id={'types'} name={'type'}/>
               </div>
               <div className='flex flex-col w-full'>
-                  <Input defaultValue={clientDetails} onChange={e => setClientDetails(e.target.value)} label={'Dados do Veículo'} id={'vehicle_client'} placeholder={'Placa e Modelo do veículo'} type={'text'}/>
+                  <Input defaultValue={clientDetails} onChange={e => setClientDetails(e.target.value)} label={'Dados do Veículo'} id={'vehicle_client'} placeholder={'Veículo do Cliente'} type={'text'}/>
                   <Input defaultValue={licensePlate} onChange={e => setLicensePlate(e.target.value)} label={'Placa do Veículo'} id={'license_plate'} placeholder={'AAA-0000'} type={'text'}/>       
               </div>
 
@@ -315,7 +326,7 @@ useEffect(() => {
             
             <div className='flex flex-row justify-around'>
               <div className='w-full'>
-                <Input defaultValue={value} description={'(*) O valor será formatado quando for salvo'} onChange={e => {setValue(e.target.value)}} label={'Valor'} id={'value_input'} placeholder={'R$ 000,00'} type={'text'}/>
+                <Input defaultValue={value} description={'(*) O valor será formatado quando for salvo'} onChange={e => {setValue(e.target.value)}} label={'Valor'} id={'value_input'} placeholder={'000.00'} type={'text'}/>
               </div>
               <div className='w-full pl-8'>
                 <Dropdown value={valueTypeSelected} onChange={e => setValueTypeSelected(e.target.value)} label='Tipo de Entrada' items={[...valueType]} id={'value_types'} name={'value_type'}/>
