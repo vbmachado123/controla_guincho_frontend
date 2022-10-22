@@ -109,30 +109,31 @@ export function Header({ currentPage }: HeaderProps) {
         {/* <Link onClick={useForceUpdate()} to={linkAttendance} aria-invalid={true}>
           <HeaderItem title={'Atendimentos'} icon={'assignment'} active={atendimentoSelected} />
         </Link> */}
-        <Link to={linkCalled.pathname} aria-invalid={true}>
+        
+        <a href={linkCalled.pathname} aria-invalid={true}>
           <HeaderItem title={'Chamados'} icon={'assignment'} active={chamadoSelected} />
-        </Link>
+        </a>
 
-        <Link to={linkProfessional.pathname} aria-invalid={true}>
+        <a href={linkProfessional.pathname} aria-invalid={true}>
           <HeaderItem title={'Profissionais'} icon={'professional'} active={profissionaisSelected} />
-        </Link>
+        </a>
 
-        <Link to={linkVehicle.pathname} aria-invalid={true}>
+        <a href={linkVehicle.pathname} aria-invalid={true}>
           <HeaderItem title={'Veículos'} icon={'vehicle'} active={veiculosSelected} />
-        </Link>
+        </a>
 
-        <Link to={linkCheckingAccount.pathname} aria-invalid={true}>
+        <a href={linkCheckingAccount.pathname} aria-invalid={true}>
           <HeaderItem title={'Conta Corrente'} icon={'checking_account'} active={conta_correnteSelected} />
-        </Link>
+        </a>
 
       </div>
 
-      <Link to="/login">
+      <a href="/login">
         {' '}
         <p className="text-slate-800">
           Olá, <span className="text-green-600 font-semibold">admin</span>
         </p>
-      </Link>
+      </a>
     </nav>
   )
 }
