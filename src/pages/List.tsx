@@ -169,7 +169,7 @@ export function List() {
             
             const filtered = items.filter((item) => item.type.description === "Entrada");
 
-            return filtered.filter((item, index) => index < (currentPage * 10) && index >= (currentPage * 10 - 10)).map((item, index) => (
+            return filtered.filter((item, index) => index < (currentPage * itemsPerPage) && index >= (currentPage * itemsPerPage - itemsPerPage)).map((item, index) => (
               <ListItem
                 id={item.id}
                 key={index}
@@ -185,7 +185,7 @@ export function List() {
           } else if (filter === "Saída") {
             const filtered = items.filter((item) => item.type.description === "Saída");
 
-            return filtered.filter((item, index) => index < (currentPage * 10) && index >= (currentPage * 10 - 10)).map((item, index) => (
+            return filtered.filter((item, index) => index < (currentPage * itemsPerPage) && index >= (currentPage * itemsPerPage - itemsPerPage)).map((item, index) => (
               <ListItem
                 id={item.id}
                 key={index}
@@ -199,7 +199,7 @@ export function List() {
               />
             ))
           } else {
-            return items.filter((item, index) => index < (currentPage * 10) && (index >= currentPage * 10 - 10)).map((item, index) => (
+            return items.filter((item, index) => index < (currentPage * itemsPerPage) && (index >= currentPage * itemsPerPage - itemsPerPage)).map((item, index) => (
               <ListItem
                  id={item.id}
                  key={index}
@@ -272,8 +272,15 @@ export function List() {
   const [filter, setFilter] = useState('');
   const [filterList, setFilterList] = useState<any[]>([]);
 
-  const numberOfPages = filter === 'TODOS' || filter === '' ? Math.ceil(items.length / 10) : Math.ceil(filterList.length / 10);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const numberOfPages = filter === 'TODOS' || filter === '' ? Math.ceil(items.length / itemsPerPage) : Math.ceil(filterList.length / itemsPerPage);
   const { currentPage, setCurrentPage, pages } = usePagination(numberOfPages);
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(e.target.value);
+
+    setCurrentPage(1);
+  }
 
   const handleFilter = (e) => {
 
@@ -310,6 +317,14 @@ export function List() {
                 <option value={"Saída"} >SAÍDA</option>
               </select>
           }
+          <select  onChange={handleItemsPerPageChange} defaultValue={"DEFAULT"} className={"btn w-52 mr-3 bg-green-500 text-white rounded-2xl px-6 py-3 font-normal drop-shadow-lg hover:bg-green-600 hover:shadow-2xl focus:border-transparent transition-all translate-x-0 animate-none border-none"}>
+            <option value={"DEFAULT"} disabled>{"ITEMS POR PÁGINA"}</option>
+            {
+              [10, 20, 30, 40, 50].map((item, index) => (
+                <option value={item} >{item}</option>
+              ))
+            }
+          </select>
         </div>
 
         <div className="mt-8 overflow-y-scroll px-24 w-full ">
