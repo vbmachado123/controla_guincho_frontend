@@ -28,6 +28,18 @@ const create_one = (request: Object) => {
     })
 }
 
+const description = () => {
+    return http.get<any[]>('/called/descriptions', {
+        withCredentials: false,
+        headers: {
+            "Access-Control-Allow-Origin": "http://localhost:3000",
+            "Access-Control-Allow-Headers": "Authorization",
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+            "Content-Type": "application/json;charset=UTF-8"
+        }
+    })
+}
+
 export const CalledService = {
-    findAll, findOne, findTypes, create, create_one
+    findAll, findOne, findTypes, create, create_one, description
 }

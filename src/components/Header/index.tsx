@@ -91,7 +91,7 @@ export function Header({ currentPage }: HeaderProps) {
   return (
     <nav
       className="fixed top-0 left-0 flex justify-between content-between items-center px-24 py-6
-            bg-slate-200 w-screen space-x-4 text-white shadow-2xl">
+            bg-slate-200 w-screen space-x-4 text-white shadow-2xl z-20">
     
       <Link to="/" aria-invalid={true}>
         {/* <img src={logo} alt="Logo Mentore Tech" className='y-1 x-1'/> */}
