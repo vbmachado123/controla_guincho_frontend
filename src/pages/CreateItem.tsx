@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { Feedback } from '../components/Feedback';
 import { Header } from '../components/Header';
 import { Input } from '../components/Input';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -91,14 +92,6 @@ export function CreateItem() {
         //     "tow_truck" : {"id" : vehicleSelected}
 
         setValue(response.data.value);
-
-        if (response.data.type.id == "2") {
-          setIsSaida(true);
-
-
-          setClientDetails('');
-          setLicensePlate('');
-        }
       }
     }
 
@@ -263,10 +256,14 @@ export function CreateItem() {
     const response = await CalledService.create_one(obj);
     console.log(response.status)
 
-    await toast("Dados Salvos com Sucesso!");
+    toast("Dados Salvos com Sucesso!");
 
-    window.location.reload();
-
+    setDescription('');
+    setDateHourInit('');
+    setDateHourEnd('');
+    setKmInit('');
+    setKmEnd('');
+    setValue('');
   }
 
   const [date, setDate] = useState(new Date());
@@ -298,8 +295,37 @@ export function CreateItem() {
     }, 500);
   }
 
+  useEffect(() => {
+    if (valueTypeSelected == "2") {
+      setIsSaida(true);
+
+      setDateHourInit("");
+      setDateHourEnd("");
+      setKmInit("--");
+      setKmEnd("");
+      setValue("");
+      setClientDetails('');
+      setLicensePlate('');
+    } else {
+      setIsSaida(false);
+    }
+
+  }, [valueTypeSelected])
+
   return (
     <div className="flex flex-col w-screen h-screen scroll-smooth relative overflow-y-auto overflow-x-hidden bg-slate-100 ">
+       <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
+      
       <div className="mb-16 col-span-6 items-center justify-center w-full h-screen mt-24">
         <div className="relative flex flex-row justify-between  px-24">
           <div className="flex flex-row items-center text-green-500 hover:text-green-600 transition-all ease-linear">
@@ -392,7 +418,7 @@ export function CreateItem() {
 
               <div className='flex flex-row justify-around space-x-4'>
                 <div className='w-full'>
-                  <Dropdown value={valueTypeSelected} isDisabled={isSaida} onChange={e => setValueTypeSelected(e.target.value)} label='Tipo de Entrada' items={[...valueType]} id={'value_types'} name={'value_type'} />
+                  <Dropdown value={valueTypeSelected} onChange={e => setValueTypeSelected(e.target.value)} label='Tipo de Entrada' items={[...valueType]} id={'value_types'} name={'value_type'} />
                 </div>
 
                 <div className='w-full'>

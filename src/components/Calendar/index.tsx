@@ -25,7 +25,7 @@ export const Calendar = ({ date, setDate }: CalendarProps) => {
                 </div>
 
                 <div className='h-full text-center flex items-center justify-center px-4'>
-                    <button onClick={() => setModal(!modal)} className='text-blue-900'>
+                    <button onClick={(e) => { e.preventDefault(); setModal(!modal) }} className='text-blue-900'>
                         <AiOutlineCalendar />
                     </button>
                 </div>
