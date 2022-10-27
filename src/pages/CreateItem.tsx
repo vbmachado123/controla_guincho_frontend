@@ -49,7 +49,6 @@ export function CreateItem() {
   const [types, setTypes] = useState<ItemSelect[]>([]);
   const [isSaida, setIsSaida] = useState<boolean>(false);
 
-
   useEffect(() => {
     async function load() {
       if (id !== "") {
@@ -59,13 +58,13 @@ export function CreateItem() {
         console.log(response.data);
 
         setDescription(response.data.description);
-        setDateHourInit('--');
-        setDateHourEnd('--');
+        setDateHourInit('');
+        setDateHourEnd('');
 
         setLicensePlate(response.data.license_plate ?? '');
 
-        setKmEnd('--');
-        setKmInit('--');
+        setKmEnd('');
+        setKmInit('');
         // let clientDetails = '';
         // if(response.data.vehicle != '' 
         // || response.data.license_plate != '') {
@@ -301,7 +300,7 @@ export function CreateItem() {
 
       setDateHourInit("");
       setDateHourEnd("");
-      setKmInit("--");
+      setKmInit("");
       setKmEnd("");
       setValue("");
       setClientDetails('');
@@ -418,11 +417,11 @@ export function CreateItem() {
 
               <div className='flex flex-row justify-around space-x-4'>
                 <div className='w-full'>
-                  <Dropdown value={valueTypeSelected} onChange={e => setValueTypeSelected(e.target.value)} label='Tipo de Entrada' items={[...valueType]} id={'value_types'} name={'value_type'} />
+                  <Dropdown value={valueTypeSelected} isDisabled={id !== undefined && isSaida} onChange={e => setValueTypeSelected(e.target.value)} label='Tipo de Entrada' items={[...valueType]} id={'value_types'} name={'value_type'} />
                 </div>
 
                 <div className='w-full'>
-                  <Input defaultValue={value} isDisabled={isSaida} description={'(*) O valor será formatado quando for salvo'} onChange={e => { setValue(e.target.value) }} label={'Valor'} id={'value_input'} placeholder={'000.00'} type={'text'} />
+                  <Input defaultValue={value} isDisabled={id !== undefined && isSaida} description={'(*) O valor será formatado quando for salvo'} onChange={e => { setValue(e.target.value) }} label={'Valor'} id={'value_input'} placeholder={'000.00'} type={'text'} />
                 </div>
               </div>
             </div>
