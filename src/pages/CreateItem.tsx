@@ -35,6 +35,9 @@ export function CreateItem() {
   const [clientDetails, setClientDetails] = useState<string>('');
   const [licensePlate, setLicensePlate] = useState<string>('');
 
+  const [totalTime, setTotalTime] = useState<string>('');
+  const [kmDif, setKmDif] = useState<string>('');
+
   // dropdown
   const [valueTypeSelected, setValueTypeSelected] = useState<string>('1');
   const [vehicleTypeSelected, setVehicleTypeSelected] = useState<string>('1');
@@ -311,20 +314,53 @@ export function CreateItem() {
 
   }, [valueTypeSelected])
 
+  function calcTotalTime() {
+    // let initDate = Date.parse(dateHourInit);
+    // let endDate = Date.parse(dateHourEnd);
+
+    let initDateParsed = parse(dateHourInit);
+    let endDateParsed = parse(dateHourEnd);
+
+    console.log(endDateParsed - initDateParsed);
+
+    let result = endDateParsed - initDateParsed;
+
+    let formatted = '';
+
+    if (result <= 60) formatted = `00:${result}:00`;
+
+
+    setTotalTime(formatted);
+
+  }
+
+  function parse(horario) {
+    let [hora, minuto] = horario.split(':').map(v => parseInt(v));
+    if (!minuto) { // para o caso de não ter os minutos
+      minuto = 0;
+    }
+    return minuto + (hora * 60);
+  }
+
+  function calcKmDif() {
+    // let kmEndNumber = Number.parseInt(kmEnd);
+    setKmDif(`${Number.parseInt(kmEnd) - Number.parseInt(kmInit)}`);
+  }
+
   return (
     <div className="flex flex-col w-screen h-screen scroll-smooth relative overflow-y-auto overflow-x-hidden bg-slate-100 ">
-       <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-        />
-      
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
       <div className="mb-16 col-span-6 items-center justify-center w-full h-screen mt-24">
         <div className="relative flex flex-row justify-between  px-24">
           <div className="flex flex-row items-center text-green-500 hover:text-green-600 transition-all ease-linear">
@@ -349,7 +385,7 @@ export function CreateItem() {
         <div className="mt-8 mx-24 overflow-y-scroll px-8 py-8 bg-white shadow-xl rounded-3xl flex flex-col mb-16">
 
           <form onSubmit={afterSubmission}>
-            <h4 className='text-lg text-green-500 font-bold'>Detalhes do Chamado</h4>
+            <h4 className='text-lg text-green-500 font-bold'>Detalhes do Chamado - {id}</h4>
 
             <div className='flex flex-row w-full space-x-4 mt-4 relative'>
               <Calendar date={date} setDate={setDate} />
@@ -364,10 +400,10 @@ export function CreateItem() {
 
             <div className='flex relative mt-4 lg:flex-row md:flex-col sm:flex-col w-full justify-between items-start'>
               <div onFocus={handleDescriptionFocus} onBlur={handleDescriptionBlur}>
-                <Input defaultValue={description} onChange={(e) => handleDescriptionChange(e.target.value)} style={'h-28 w-96'} label={'Descrição'} id={'description'} placeholder={'Descrição do Chamado'} textarea={true} type={'textarea'} />
+                <Input defaultValue={description} onChange={(e) => handleDescriptionChange(e.target.value)} style={'h-48 w-[1000px]'} label={'Descrição'} id={'description'} placeholder={'Descrição do Chamado'} textarea={true} type={'textarea'} />
                 {
                   (descriptionRecent.length > 0 && descriptionRecentActive) &&
-                  <div className='flex flex-col w-96 h-28 bg-white rounded-2xl shadow-lg absolute top-20 left-0 z-10 p-4 min-h-[200px]'>
+                  <div className='flex flex-col w-96 h-28 bg-white rounded-2xl shadow-lg absolute top-20  left-0 z-10 p-4 min-h-[200px]'>
                     <h4 className='text-lg text-green-500 font-bold'>Descrições Recentes</h4>
                     <div className='flex flex-col w-full h-full overflow-y-scroll'>
                       {
@@ -386,17 +422,21 @@ export function CreateItem() {
             </div>
             <hr className='my-4' />
 
-            <h4 className='text-lg text-green-500 font-bold'>Motorista e Veículo</h4>
+            <h4 className='text-lg text-green-500 font-bold'>Veículo</h4>
 
-            <div className='flex mt-4 flex-col w-full items-start space-y-4'>
+            <div className='flex mt-4 flex-col w-full items-center space-y-4'>
               <div className='flex flex-row w-full space-x-4'>
                 <Input defaultValue={dateHourInit} isDisabled={isSaida} onChange={e => setDateHourInit(e.target.value)} label={'Hora Início'} id={'dateHour_init'} placeholder={'Data - Hora de Inicio'} type={'text'} />
                 <Input defaultValue={dateHourEnd} isDisabled={isSaida} onChange={e => setDateHourEnd(e.target.value)} label={'Hora Fim'} id={'dateHour_end'} placeholder={'Data - Hora do Fim'} type={'text'} />
+
+                <p onClick={() => calcTotalTime()} className='text-green-600'>Tempo total do atendimento: <span className='font-bold'>{totalTime}</span></p>
               </div>
 
               <div className='flex flex-row w-full space-x-4'>
                 <Input defaultValue={kmInit} isDisabled={isSaida} onChange={e => setKmInit(e.target.value)} label={'KM Início'} id={'dateHour_init'} placeholder={'00000'} type={'number'} />
                 <Input defaultValue={kmEnd} isDisabled={isSaida} onChange={e => setKmEnd(e.target.value)} label={'KM Fim'} id={'dateHour_end'} placeholder={'00000'} type={'number'} />
+                <p onClick={() => calcKmDif()} className='text-green-600'>Quilometragem total: <span className='font-bold'>{kmDif}</span></p>
+
               </div>
 
               <div className='flex flex-row w-full space-x-4'>

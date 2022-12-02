@@ -318,9 +318,9 @@ export function List() {
               </select>
           }
           <select  onChange={handleItemsPerPageChange} defaultValue={"DEFAULT"} className={"btn w-52 mr-3 bg-green-500 text-white rounded-2xl px-6 py-3 font-normal drop-shadow-lg hover:bg-green-600 hover:shadow-2xl focus:border-transparent transition-all translate-x-0 animate-none border-none"}>
-            <option value={"DEFAULT"} disabled>{"ITEMS POR PÁGINA"}</option>
+            <option value={"DEFAULT"} disabled>{"ITENS POR PÁGINA"}</option>
             {
-              [10, 20, 30, 40, 50].map((item, index) => (
+              [10, 20, 30, 40, 50, 100, 200].map((item, index) => (
                 <option value={item} >{item}</option>
               ))
             }
