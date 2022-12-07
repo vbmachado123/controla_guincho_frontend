@@ -66,8 +66,15 @@ export function CreateItem() {
 
         setLicensePlate(response.data.license_plate ?? '');
 
+
+
+        if (response.data.origin.id === 1) {
+          setKmInit(response.data.kmEnd);
+        } else {
+          setKmInit('');
+        }
+
         setKmEnd('');
-        setKmInit('');
         // let clientDetails = '';
         // if(response.data.vehicle != '' 
         // || response.data.license_plate != '') {
@@ -312,7 +319,11 @@ export function CreateItem() {
       setIsSaida(false);
     }
 
-  }, [valueTypeSelected])
+  }, [valueTypeSelected]);
+
+  useEffect(() => {
+    calcTotalTime();
+  }, [dateHourInit, dateHourEnd]);
 
   function calcTotalTime() {
     // let initDate = Date.parse(dateHourInit);
@@ -325,16 +336,28 @@ export function CreateItem() {
 
     let result = endDateParsed - initDateParsed;
 
-    let formatted = '';
+    let formatted = '00:00:00';
 
     if (result <= 60) formatted = `00:${result}:00`;
 
+    if (result > 60) {
+      let hours = Math.floor(result / 60);
+      let minutes = result % 60;
+
+      formatted = `${hours}:${minutes}:00`;
+    } else if (initDateParsed > endDateParsed) {
+      const hours = Math.floor(initDateParsed / 60);
+      const minutes = initDateParsed % 60;
+
+      formatted = `${hours}:${minutes}:00`;
+    }
 
     setTotalTime(formatted);
 
   }
 
   function parse(horario) {
+    console.log(horario)
     let [hora, minuto] = horario.split(':').map(v => parseInt(v));
     if (!minuto) { // para o caso de não ter os minutos
       minuto = 0;
@@ -342,9 +365,48 @@ export function CreateItem() {
     return minuto + (hora * 60);
   }
 
+  useEffect(() => {
+    calcKmDif();
+  }, [kmEnd, kmInit])
+
   function calcKmDif() {
-    // let kmEndNumber = Number.parseInt(kmEnd);
-    setKmDif(`${Number.parseInt(kmEnd) - Number.parseInt(kmInit)}`);
+
+    if (kmInit == '' || kmEnd == '') {
+      setKmDif('0');
+      return;
+    }
+
+    const kmDif = Math.abs(Number.parseInt(kmEnd) - Number.parseInt(kmInit));
+
+    setKmDif(kmDif.toString());
+  }
+
+  function getTotalTimeValue() {
+    if (dateHourInit == '' || dateHourEnd == '' || value == '') return 0;
+
+    const totalTimeInSec = parse(totalTime);
+
+    return (Number.parseFloat(value) / Number.parseInt(totalTimeInSec)).toFixed(2);
+  }
+
+  function getKmDifValue() {
+    if (kmInit == '' || kmEnd == '' || value == '') return 0;
+
+    return (Number.parseFloat(value) / Number.parseInt(kmDif)).toFixed(2);
+  }
+
+  function getKmPerLiter() {
+    if (kmInit == '' || kmEnd == '' || value == '') return 0;
+
+    return (Number.parseInt(kmDif) / Number.parseFloat(value)).toFixed(2);
+  }
+
+  function getQuantityLiters() {
+    if (kmInit == '' || kmEnd == '' || value == '') return 0;
+
+    const totalTimeInSec = parse(totalTime);
+
+    return (Number.parseFloat(value) / Number.parseInt(totalTimeInSec)).toFixed(2);
   }
 
   return (
@@ -398,6 +460,15 @@ export function CreateItem() {
               <Dropdown value={vehicleTypeSelected} onChange={e => setVehicleTypeSelected(e.target.value)} label='Categoria do Veículo' items={[...vehicles_types]} id={'vehicle_type'} name={'vehicle_types'} />
             </div>
 
+            {
+              originSelected == '1' && (
+                <div className='flex flex-row w-full space-x-4 mt-4'>
+                  <Input id="literValue" type="number" defaultValue={""} label='Valor por litro' placeholder='R$ 0,00' />
+                  <Input id="literValue" type="number" defaultValue={""} label='Quantidade abastecida' placeholder='0' />
+                </div>
+              )
+            }
+
             <div className='flex relative mt-4 lg:flex-row md:flex-col sm:flex-col w-full justify-between items-start'>
               <div onFocus={handleDescriptionFocus} onBlur={handleDescriptionBlur}>
                 <Input defaultValue={description} onChange={(e) => handleDescriptionChange(e.target.value)} style={'h-48 w-[1000px]'} label={'Descrição'} id={'description'} placeholder={'Descrição do Chamado'} textarea={true} type={'textarea'} />
@@ -429,13 +500,13 @@ export function CreateItem() {
                 <Input defaultValue={dateHourInit} isDisabled={isSaida} onChange={e => setDateHourInit(e.target.value)} label={'Hora Início'} id={'dateHour_init'} placeholder={'Data - Hora de Inicio'} type={'text'} />
                 <Input defaultValue={dateHourEnd} isDisabled={isSaida} onChange={e => setDateHourEnd(e.target.value)} label={'Hora Fim'} id={'dateHour_end'} placeholder={'Data - Hora do Fim'} type={'text'} />
 
-                <p onClick={() => calcTotalTime()} className='text-green-600'>Tempo total do atendimento: <span className='font-bold'>{totalTime}</span></p>
+                <p className='text-green-600'>Tempo total do atendimento: <span className='font-bold'>{totalTime}</span></p>
               </div>
 
               <div className='flex flex-row w-full space-x-4'>
                 <Input defaultValue={kmInit} isDisabled={isSaida} onChange={e => setKmInit(e.target.value)} label={'KM Início'} id={'dateHour_init'} placeholder={'00000'} type={'number'} />
                 <Input defaultValue={kmEnd} isDisabled={isSaida} onChange={e => setKmEnd(e.target.value)} label={'KM Fim'} id={'dateHour_end'} placeholder={'00000'} type={'number'} />
-                <p onClick={() => calcKmDif()} className='text-green-600'>Quilometragem total: <span className='font-bold'>{kmDif}</span></p>
+                <p className='text-green-600'>Quilometragem total: <span className='font-bold'>{kmDif}</span></p>
 
               </div>
 
@@ -453,6 +524,43 @@ export function CreateItem() {
               <div className='flex flex-row w-full space-x-4 mt-4'>
                 <Input onChange={() => { }} isDisabled={isSaida} label={'Horas parado'} id={'value'} placeholder={'00:00'} type={'number'} />
                 <Input onChange={() => { }} isDisabled={isSaida} label={'Pedágio'} id={'value'} placeholder={'R$ 0,00'} type={'number'} />
+
+                <div className='flex flex-col w-96 bg-white rounded-2xl shadow-lg p-4'>
+                  <h4 className='text-lg text-green-500 font-bold'>
+                    Valor por KM Rodado:
+                    <span className='text-sm text-gray-500 ml-4'>
+                      R$ {getKmDifValue()}
+                    </span>
+                  </h4>
+
+                  <h4 className='text-lg text-green-500 font-bold'>
+                    Valor por Hora Parado:
+                    <span className='text-sm text-gray-500 ml-4'>
+                      R$ {getTotalTimeValue()}
+                    </span>
+                  </h4>
+
+                  {
+                    originSelected == '1' && (
+                      <>
+                        <h4 className='text-lg text-green-500 font-bold'>
+                          Valor por litro:
+                          <span className='text-sm text-gray-500 ml-4'>
+                            R$ {getKmPerLiter()}
+                          </span>
+                        </h4>
+
+                        <h4 className='text-lg text-green-500 font-bold'>
+                          Quantidade abastecida:
+                          <span className='text-sm text-gray-500 ml-4'>
+                            {getQuantityLiters()}
+                          </span>
+                        </h4>
+                      </>
+                    )
+                  }
+
+                </div>
               </div>
 
               <div className='flex flex-row justify-around space-x-4'>
