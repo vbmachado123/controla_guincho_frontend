@@ -1,5 +1,6 @@
 {
     "name": "controla_guincho_frontend",
+    "homepage": "http://188.34.166.175",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

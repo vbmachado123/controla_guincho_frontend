@@ -2,8 +2,7 @@ import { Widget } from './pages/Widget'
 import {
   BrowserRouter,
   Routes,
-  Route,
-  HashRouter
+  Route
 } from 'react-router-dom'
 import { List } from './pages/List'
 import { Login } from './pages/Login'
@@ -16,7 +15,7 @@ import { CreateItem } from './pages/CreateItem'
 
 export function App() {
   return (
-    <HashRouter >
+    <BrowserRouter basename='/'>
       <Routes>
         <Route path="/" element={<Widget/>} />
         <Route path="/list/:type" element={<List key={Date.now()}/>} />
@@ -42,6 +41,6 @@ export function App() {
         {/* <Route path="/create/:id" element={<CreateItem />} /> */}
         <Route path="*" element={<Error />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
