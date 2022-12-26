@@ -16,7 +16,7 @@ import { CreateItem } from './pages/CreateItem'
 
 export function App() {
   return (
-    <HashRouter>
+    <HashRouter >
       <Routes>
         <Route path="/" element={<Widget/>} />
         <Route path="/list/:type" element={<List key={Date.now()}/>} />
