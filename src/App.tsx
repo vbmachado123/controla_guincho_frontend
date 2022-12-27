@@ -19,7 +19,6 @@ export function App() {
     <BrowserRouter basename='/'>
       <Routes>
         <Route path="/" element={<Widget/>} />
-        <Route path="/teste" element={<PaginaTeste/>} />
         <Route path="/list/:type" element={<List key={Date.now()}/>} />
         {/* <Route
           path="/list/professional"
