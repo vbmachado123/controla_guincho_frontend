@@ -10,7 +10,6 @@ import { ItemDetails } from './pages/ItemDetails'
 import express from 'express'
 import { Error } from './pages/Error'
 import { CreateItem } from './pages/CreateItem'
-import { PaginaTeste } from './pages/PaginaTeste'
 // import {Routes} from './routes';
 // var cors = require('cors');
 
