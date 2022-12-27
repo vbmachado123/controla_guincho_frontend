@@ -10,11 +10,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import CSVReader from 'react-csv-reader';
+import CSV from 'react-csv-reader';
+
 import { CalledService } from '../service/CalledService';
 import { Dropdown } from '../components/Dropdown';
 import { ItemSelect } from '../model/ItemSelect';
 import { Calendar } from '../components/Calendar';
+
+// @ts-ignore
+const CSVReader = CSV.default? CSV.default: CSV
 
 export function CreateItem() {
   const navigate = useNavigate();
