@@ -10,6 +10,7 @@ import { ItemDetails } from './pages/ItemDetails'
 import express from 'express'
 import { Error } from './pages/Error'
 import { CreateItem } from './pages/CreateItem'
+import { PaginaTeste } from './pages/PaginaTeste'
 // import {Routes} from './routes';
 // var cors = require('cors');
 
@@ -18,6 +19,7 @@ export function App() {
     <BrowserRouter basename='/'>
       <Routes>
         <Route path="/" element={<Widget/>} />
+        <Route path="/teste" element={<PaginaTeste/>} />
         <Route path="/list/:type" element={<List key={Date.now()}/>} />
         {/* <Route
           path="/list/professional"
