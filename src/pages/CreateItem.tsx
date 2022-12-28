@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import CSV from 'react-csv-reader';
+import CSV from 'react-csv-reader/src/index';
 
 import { CalledService } from '../service/CalledService';
 import { Dropdown } from '../components/Dropdown';
