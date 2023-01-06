@@ -114,4 +114,4 @@ CSVReader.propTypes = {
   strict: PropTypes.bool,
 }
 
-export default CSVReader
+export { CSVReader }
