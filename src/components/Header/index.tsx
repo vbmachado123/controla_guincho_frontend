@@ -106,9 +106,9 @@ export function Header({ currentPage }: HeaderProps) {
           <HeaderItem title={'Dashboard'} icon={'dashboard'} active={homeSelected} />
         </Link>
 
-        {/* <Link onClick={useForceUpdate()} to={linkAttendance} aria-invalid={true}>
+        <Link onClick={useForceUpdate()} to={linkAttendance} aria-invalid={true}>
           <HeaderItem title={'Atendimentos'} icon={'assignment'} active={atendimentoSelected} />
-        </Link> */}
+        </Link>
         
         <a href={linkCalled.pathname} aria-invalid={true}>
           <HeaderItem title={'Chamados'} icon={'assignment'} active={chamadoSelected} />
