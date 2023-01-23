@@ -110,9 +110,33 @@ export function ItemDetails() {
           <h4 className="text-green-500 font-bold text-lg pt-8 pb-4">Fotos</h4>
 
           <div className="flex flex-row overflow-x-scroll scroll-smooth w-full">
-            <Image title={'Retirada'} path={imageAsset} />
-            <Image title={'Entrega'} path={imageAsset} />
-            <Image title={'Entrega'} path={imageAsset} />
+            { 
+              exit.photo ? 
+                <Image 
+                  title={'Retirada'} 
+                  path={`http://localhost:8081/api/v1/attendance/download/${exit.photo.path}`} 
+                  footer={exit.photo.dateHour}  
+                /> : 
+                <p className='mr-4 text-black text-lg font-normal'>Sem imagem</p> 
+            }
+            { 
+              delivery.photo ? 
+                <Image 
+                  title={'Entrega'} 
+                  path={`http://localhost:8081/api/v1/attendance/download/${delivery.photo.path}`} 
+                  footer={delivery.photo.dateHour}
+                /> : 
+                <p className='mr-4 text-black text-lg font-normal'>Sem imagem</p>
+            }
+            { 
+              withdrawal.photo ? 
+                <Image 
+                  title={'Entrega'} 
+                  path={`http://localhost:8081/api/v1/attendance/download/${withdrawal.photo.path}`} 
+                  footer={withdrawal.photo.dateHour}
+                /> : 
+                <p className='mr-4 text-black text-lg font-normal'>Sem imagem</p> 
+            }
           </div>
         </div>
       </div>

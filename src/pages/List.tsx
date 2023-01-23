@@ -321,7 +321,7 @@ export function List() {
             <option value={"DEFAULT"} disabled>{"ITENS POR PÁGINA"}</option>
             {
               [10, 20, 30, 40, 50, 100, 200].map((item, index) => (
-                <option value={item} >{item}</option>
+                <option value={item} key={index}>{item}</option>
               ))
             }
           </select>
