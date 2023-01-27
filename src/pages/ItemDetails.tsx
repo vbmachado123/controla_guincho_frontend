@@ -114,7 +114,7 @@ export function ItemDetails() {
               exit.photo ? 
                 <Image 
                   title={'Retirada'} 
-                  path={`http://localhost:8081/api/v1/attendance/download/${exit.photo.path}`} 
+                  path={`http://188.34.166.175:8081/api/v1/attendance/download/${exit.photo.path}`} 
                   footer={exit.photo.dateHour}  
                 /> : 
                 <p className='mr-4 text-black text-lg font-normal'>Sem imagem</p> 
@@ -123,7 +123,7 @@ export function ItemDetails() {
               delivery.photo ? 
                 <Image 
                   title={'Entrega'} 
-                  path={`http://localhost:8081/api/v1/attendance/download/${delivery.photo.path}`} 
+                  path={`http://188.34.166.175:8081/api/v1/attendance/download/${delivery.photo.path}`} 
                   footer={delivery.photo.dateHour}
                 /> : 
                 <p className='mr-4 text-black text-lg font-normal'>Sem imagem</p>
@@ -132,7 +132,7 @@ export function ItemDetails() {
               withdrawal.photo ? 
                 <Image 
                   title={'Entrega'} 
-                  path={`http://localhost:8081/api/v1/attendance/download/${withdrawal.photo.path}`} 
+                  path={`http://188.34.166.175:8081/api/v1/attendance/download/${withdrawal.photo.path}`} 
                   footer={withdrawal.photo.dateHour}
                 /> : 
                 <p className='mr-4 text-black text-lg font-normal'>Sem imagem</p> 
