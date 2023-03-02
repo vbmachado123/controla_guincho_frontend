@@ -42,6 +42,10 @@ export function ItemDetails() {
   const [kmEnd, setKmEnd] = useState(0);
   const [kmDif, setKmDif] = useState('');
 
+  const [patins, setPatins] = useState<number>(0);
+
+  const [attendanceId, setAttendanceId] = useState('');
+
   useEffect(() => {
     setTotalTime(calcTotalTime());
   }, [dateHourInit, dateHourEnd]);
@@ -80,10 +84,12 @@ export function ItemDetails() {
     setValue(res[newCurrentItem].value);
     setDateHour(res[newCurrentItem].dateHour);
     setObservation(res[newCurrentItem].observation);
-    setDateHourInit(res[newCurrentItem].journey.dateHourInit);
-    setDateHourEnd(res[newCurrentItem].journey.dateHourEnd);
+    setDateHourInit(res[newCurrentItem].dateHour);
+    setDateHourEnd(res[newCurrentItem].withdrawal.photo.dateHour);
     setKmInit(res[newCurrentItem].exit.km);
-    setKmEnd(res[newCurrentItem].delivery.km);
+    setKmEnd(res[newCurrentItem].withdrawal.km);
+    setPatins(res[newCurrentItem].patins);
+    setAttendanceId(res[newCurrentItem].id);
     setPicture({
       title: "Saida",
       content: res[newCurrentItem].exit
@@ -135,10 +141,12 @@ export function ItemDetails() {
       setValue(current.value);
       setDateHour(current.dateHour);
       setObservation(current.observation);
-      setDateHourInit(current.journey.dateHourInit);
-      setDateHourEnd(current.journey.dateHourEnd);
+      setDateHourInit(current.dateHour);
+      setDateHourEnd(current.withdrawal.photo.dateHour);
       setKmInit(current.exit.km);
-      setKmEnd(current.delivery.km);
+      setKmEnd(current.withdrawal.km);
+      setPatins(current.patins);
+      setAttendanceId(current.id);
       setPicture({
         title: "Saida",
         content: current.exit
@@ -163,8 +171,25 @@ export function ItemDetails() {
       return 0;
     }
 
-    const minutes = dateHour?.split("-")[1].split(":")[1];
-    const hours = dateHour?.split("-")[1].split(":")[0];
+    console.log("dateHour", dateHour)
+
+    // recebe o formato "20/02/2023 - 22:20" mas pode receber tambem "22:20:00"
+    // em ambos os casos, o resultado deve ser a quantidade de minutos
+    // ex: 20/02/2023 - 22:20 => 22 * 60 + 20 = 1340
+    // ex: 22:20:00 => 22 * 60 + 20 = 1340
+
+    const splitedDate = dateHour.split(" - ");
+    let hours: string, minutes;
+    
+    if (splitedDate.length === 1) {
+      const splitedHour = dateHour.split(":");
+      hours = splitedHour[0];
+      minutes = splitedHour[1];
+    } else {
+      const splitedHour = splitedDate[1].split(":");
+      hours = splitedHour[0];
+      minutes = splitedHour[1];
+    }
 
     return Number(hours) * 60 + Number(minutes);
   }
@@ -173,10 +198,6 @@ export function ItemDetails() {
 
     let initDateParsed = parse(dateHourInit);
     let endDateParsed = parse(dateHourEnd);
-
-    if (initDateParsed === 0 || endDateParsed === 0) {
-      return 'Sem dados';
-    }
 
     let result = endDateParsed - initDateParsed;
 
@@ -219,6 +240,10 @@ export function ItemDetails() {
     return (value / totalTimeInSec).toFixed(2).toString().replace('.', ',');
   }
 
+  useEffect(() => {
+    getTotalTimeValue();
+  }, [totalTime]);
+
   const calcValue = () => {
     let value = 0;
 
@@ -231,7 +256,11 @@ export function ItemDetails() {
     }
 
     if (getTotalTimeValue() !== '0') {
-      value += Number(getTotalTimeValue()) * 32;
+      value += Number.parseInt(getTotalTimeValue()) * 32;
+    }
+
+    if (patins) {
+      value += 32 * patins;
     }
 
     return value.toFixed(2).toString().replace('.', ',');
@@ -282,7 +311,7 @@ export function ItemDetails() {
         <div className="mt-8 mx-24 overflow-y-scroll px-8 py-8 bg-white shadow-xl rounded-3xl flex flex-col mb-16">
           <div className="flex flex-row justify-between">
             <h4 className="text-black text-lg font-normal">
-              {dateHour ?? 'Data e hora não especificada'}
+              {`${dateHour} | ${attendanceId}`}
             </h4>
             <TextMultipleStyle title={'Veículo'} content={`${client.brand ?? ''} - ${client.model ?? ''} | ${client.license_plate ?? ''}`} />
             <TextMultipleStyle title={'Valor'} content={`R$ ${value ?? '0'}`} />
@@ -344,7 +373,6 @@ export function ItemDetails() {
           <div className="flex flex-col w-full">
             <div className="flex flex-row justify-between items-center w-full gap-4 pt-8">
               <h4 className="text-green-500 font-bold text-lg">{picture?.title}</h4>
-              <h4 className="text-lg">{picture?.content.address}</h4>
               <TextMultipleStyle title={"KM"} content={picture?.content.km} />
             </div>
 
