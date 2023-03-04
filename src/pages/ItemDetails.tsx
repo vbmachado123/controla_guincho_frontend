@@ -203,18 +203,28 @@ export function ItemDetails() {
 
     let formatted = '00:00:00';
 
-    if (result <= 60) formatted = `00:${result}:00`;
+    if (result <= 60) {
+      const formattedResult = result < 10 ? `0${result}` : result;
+
+      formatted = `00:${formattedResult}:00`;
+    }
 
     if (result > 60) {
-      let hours = Math.floor(result / 60);
-      let minutes = result % 60;
+      const hours = Math.floor(result / 60);
+      const minutes = result % 60;
 
-      formatted = `${hours}:${minutes}:00`;
+      const formattedHours = hours < 10 ? `0${hours}` : hours;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+      formatted = `${formattedHours}:${formattedMinutes}:00`;
     } else if (initDateParsed > endDateParsed) {
       const hours = Math.floor(initDateParsed / 60);
       const minutes = initDateParsed % 60;
 
-      formatted = `${hours}:${minutes}:00`;
+      const formattedHours = hours < 10 ? `0${hours}` : hours;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+      formatted = `${formattedHours}:${formattedMinutes}:00`;
     }
 
     return formatted;
@@ -352,16 +362,16 @@ export function ItemDetails() {
               <TextMultipleStyle title={'Tempo total de atendimento'} content={`${totalTime ?? ''}`} />
               <TextMultipleStyle
                 title={'Valor por KM rodado'}
-                content={kmDif}
+                content={`R$ ${kmDif.toString().replace('.', ',')}`}
               />
               <TextMultipleStyle
                 title={'Valor por hora parado'}
-                content={getTotalTimeValue()}
+                content={`R$ ${getTotalTimeValue().toString().replace('.', ',')}`}
               />
 
               <TextMultipleStyle
                 title={'Valor Calculado'}
-                content={calcValue()}
+                content={`R$ ${calcValue().toString().replace('.', ',')}`}
               />
             </div>
           </div>
