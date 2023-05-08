@@ -7,10 +7,11 @@ import imageAsset from '../assets/images/login_background.png'
 import { Feedback } from '../components/Feedback'
 import { Link, useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AttendanceService } from '../service/AttendanceService'
 import { json } from 'stream/consumers'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
+import ImageViewer from 'react-simple-image-viewer';
 
 export function ItemDetails() {
   const navigate = useNavigate()
@@ -250,6 +251,19 @@ export function ItemDetails() {
     return (value / totalTimeInSec).toFixed(2).toString().replace('.', ',');
   }
 
+  const [currentImage, setCurrentImage] = useState('');
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  
+  const openImageViewer = useCallback((image) => {
+    setCurrentImage(image);
+    setIsViewerOpen(true);
+  }, []);
+
+  const closeImageViewer = () => {
+    setCurrentImage('');
+    setIsViewerOpen(false);
+  };
+
   useEffect(() => {
     getTotalTimeValue();
   }, [totalTime]);
@@ -394,6 +408,7 @@ export function ItemDetails() {
                       <img
                         src={`http://188.34.166.175:8081/api/v1/attendance/download/${picture?.content.photo?.path}`}
                         alt={`Foto de ${exit.address}`}
+                        onClick={() => openImageViewer(`http://188.34.166.175:8081/api/v1/attendance/download/${picture?.content.photo?.path}`)}
                         className="w-96 border-4 border-green-500 rounded-2xl"
                       />
                       <p className='py-4'>{picture?.content.dateHour}</p>
@@ -444,6 +459,16 @@ export function ItemDetails() {
               >
                 <AiOutlineArrowRight size={22} />
               </button>
+
+              {isViewerOpen && (
+        <ImageViewer
+          src={ [...currentImage] }
+          currentIndex={ 0 }
+          disableScroll={ false }
+          closeOnClickOutside={ true }
+          onClose={ closeImageViewer }
+        />
+      )}
 
             </div>
           </div>
